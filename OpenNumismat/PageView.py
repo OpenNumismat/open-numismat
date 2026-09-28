@@ -107,14 +107,16 @@ class PageView(Splitter):
         sizes = self.splitter1.sizes()
 
         if self.param.info_type == CollectionPageTypes.Map:
-            self.splitter1.replaceWidget(1, self.mapView)
+            widget = self.mapView
         elif self.param.info_type == CollectionPageTypes.Statistics:
-            self.splitter1.replaceWidget(1, self.statisticsView)
+            widget = self.statisticsView
+        elif self.imagesAtBottom:
+            widget = self.imageView
         else:
-            if self.imagesAtBottom:
-                self.splitter1.replaceWidget(1, self.imageView)
-            else:
-                self.splitter1.replaceWidget(1, self.detailsView)
+            widget = self.detailsView
+
+        if self.splitter1.widget(1) is not widget:
+            self.splitter1.replaceWidget(1, widget)
 
         if sizes[1] > 0:
             self.splitter1.setSizes(sizes)
