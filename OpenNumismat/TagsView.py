@@ -48,14 +48,22 @@ class TagsView(QTreeWidget):
 
             items[tag_id] = item
 
-        for tag_id, item in items.items():
-            parent_id = item.data(0, Qt.UserRole + 2)
+        if items:
+            item = QTreeWidgetItem((self.tr('(All)'),))
+            self.addTopLevelItem(item)
 
-            if parent_id:
-                parent_item = items[parent_id]
-                parent_item.addChild(item)
-            else:
-                self.addTopLevelItem(item)
+            for tag_id, item in items.items():
+                parent_id = item.data(0, Qt.UserRole + 2)
+
+                if parent_id:
+                    parent_item = items[parent_id]
+                    parent_item.addChild(item)
+                else:
+                    self.addTopLevelItem(item)
+
+            item = QTreeWidgetItem((self.tr('(Untagged)'),))
+            item.setData(0, Qt.UserRole, -1)
+            self.addTopLevelItem(item)
 
         self.expandAll()
 
@@ -65,23 +73,40 @@ class TagsView(QTreeWidget):
             self.resizeColumnToContents(0)
 
             tag_id = current.data(0, Qt.UserRole)
-            sql = "SELECT coin_id FROM coins_tags WHERE tag_id=?"
-            query = QSqlQuery(self.db)
-            query.prepare(sql)
-            query.addBindValue(tag_id)
-            query.exec()
-            coin_ids = []
-            while query.next():
-                record = query.record()
+            if tag_id is None:
+                filter_ = ""
+            elif tag_id == -1:
+                sql = "SELECT DISTINCT coin_id FROM coins_tags WHERE coin_id IS NOT NULL"
+                query = QSqlQuery(self.db)
+                query.prepare(sql)
+                query.exec()
+                coin_ids = []
+                while query.next():
+                    coin_id = query.value(0)
+                    coin_ids.append(str(coin_id))
 
-                coin_id = record.value(0)
-                coin_ids.append(str(coin_id))
-
-            if coin_ids:
-                # TODO: Use INNER JOIN instead filtering by id
-                filter_ = f"coins.id IN ({','.join(coin_ids)})"
+                if coin_ids:
+                    # TODO: Use INNER JOIN instead filtering by id
+                    filter_ = f"coins.id NOT IN ({','.join(coin_ids)})"
+                else:
+                    filter_ = ""
             else:
-                filter_ = "FALSE"
+                sql = "SELECT coin_id FROM coins_tags WHERE tag_id=? AND coin_id IS NOT NULL"
+                query = QSqlQuery(self.db)
+                query.prepare(sql)
+                query.addBindValue(tag_id)
+                query.exec()
+                coin_ids = []
+                while query.next():
+                    coin_id = query.value(0)
+                    coin_ids.append(str(coin_id))
+
+                if coin_ids:
+                    # TODO: Use INNER JOIN instead filtering by id
+                    filter_ = f"coins.id IN ({','.join(coin_ids)})"
+                else:
+                    filter_ = "FALSE"
+
             self.model.setAdditionalFilter(filter_)
 
     def tagsChanged(self):
