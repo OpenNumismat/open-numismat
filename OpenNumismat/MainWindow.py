@@ -641,7 +641,7 @@ class MainWindow(QMainWindow):
 
     def tagsEvent(self):
         model = self.viewTab.currentModel()
-        dialog = TagsDialog(model.database(), self)
+        dialog = TagsDialog(model, self)
         res = dialog.exec()
         if res == QDialog.Accepted:
             model.tagsChanged.emit()

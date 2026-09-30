@@ -528,7 +528,7 @@ class DetailsTabWidget(QTabWidget):
         return layout
 
     def tagsLayout(self):
-        self.tags_item = TagsTreeWidget(self.model.database(), True, self)
+        self.tags_item = TagsTreeWidget(self.model, True, self)
         return self.tags_item
 
     def coordinatesLayout(self):
@@ -707,11 +707,11 @@ class FormDetailsTabWidget(DetailsTabWidget):
         self.addTabPage(title, [tags, btn])
 
     def tagsLayout(self):
-        self.tags_item = TagsTreeWidget(self.model.database(), False, self)
+        self.tags_item = TagsTreeWidget(self.model, False, self)
         return self.tags_item
 
     def clickEditTags(self):
-        dialog = TagsDialog(self.model.database(), self)
+        dialog = TagsDialog(self.model, self)
         res = dialog.exec()
         if res == QDialog.Accepted:
             self.tags_item.update()

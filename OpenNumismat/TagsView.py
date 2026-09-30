@@ -49,8 +49,7 @@ class TagsView(QTreeWidget):
             items[tag_id] = item
 
         if items:
-            item = QTreeWidgetItem((self.tr('(All)'),))
-            self.addTopLevelItem(item)
+            self.setUpdatesEnabled(False)
 
             for tag_id, item in items.items():
                 parent_id = item.data(0, Qt.UserRole + 2)
@@ -61,9 +60,17 @@ class TagsView(QTreeWidget):
                 else:
                     self.addTopLevelItem(item)
 
+            if self.model.settings['tags_sort']:
+                self.sortItems(0, Qt.SortOrder.AscendingOrder)
+
+            item = QTreeWidgetItem((self.tr('(All)'),))
+            self.insertTopLevelItem(0, item)
+
             item = QTreeWidgetItem((self.tr('(Untagged)'),))
             item.setData(0, Qt.UserRole, -1)
             self.addTopLevelItem(item)
+
+            self.setUpdatesEnabled(True)
 
         self.expandAll()
 

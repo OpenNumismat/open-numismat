@@ -4,6 +4,7 @@ from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
     QApplication,
+    QCheckBox,
     QDialog,
     QDialogButtonBox,
     QFileDialog,
@@ -25,13 +26,14 @@ from OpenNumismat.Tools.misc import readImageFilters
 
 class TagsTreeWidget(QTreeWidget):
 
-    def __init__(self, db, readonly, parent=None):
+    def __init__(self, model, readonly, parent=None):
         super().__init__(parent)
 
         self.readonly = readonly
-        self.db = db
+        self.db = model.database()
         self.record = None
         self.tristate = False
+        self.settings = model.settings
 
         self.setHeaderHidden(True)
 
@@ -82,6 +84,9 @@ class TagsTreeWidget(QTreeWidget):
                 self.addTopLevelItem(item)
 
         self.expandAll()
+
+        if self.settings['tags_sort']:
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
 
         self.fill(self.record)
 
@@ -139,12 +144,21 @@ class TagsTreeWidget(QTreeWidget):
 class EditTagsTreeWidget(QTreeWidget):
     latestDir = OpenNumismat.IMAGE_PATH
 
-    def __init__(self, db, parent=None):
+    def __init__(self, model, parent=None):
         super().__init__(parent)
 
-        self.db = db
+        self.db = model.database()
+        self.sorted = model.settings['tags_sort']
 
         self.setHeaderHidden(True)
+
+        self.update()
+
+        if self.sorted:
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
+
+    def update(self):
+        self.clear()
 
         sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
@@ -419,6 +433,19 @@ class EditTagsTreeWidget(QTreeWidget):
         tag_id = query.lastInsertId()
         item.setData(0, Qt.UserRole, tag_id)
 
+        if self.sorted:
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
+
+            self.scrollToItem(item)
+
+    def sort(self, sort):
+        self.sorted = sort
+
+        if self.sorted:
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
+        else:
+            self.update()
+
     def defaultValue(self):
         return self.tr("Enter value")
 
@@ -438,16 +465,18 @@ class EditTagsTreeWidget(QTreeWidget):
 @storeDlgSizeDecorator
 class TagsDialog(QDialog):
 
-    def __init__(self, db, parent=None):
+    def __init__(self, model, parent=None):
         super().__init__(parent,
                          Qt.WindowCloseButtonHint | Qt.WindowSystemMenuHint)
 
-        self.db = db
+        self.settings = model.settings
+
+        self.db = model.database()
         self.db.transaction()
 
         self.setWindowTitle(self.tr("Tags"))
 
-        self.tagsTree = EditTagsTreeWidget(self.db)
+        self.tagsTree = EditTagsTreeWidget(model, self)
 
         add_button = QPushButton(QIcon(':/add.png'), '')
         add_button.setToolTip(self.tr("New tag"))
@@ -475,19 +504,33 @@ class TagsDialog(QDialog):
         tree_layout.addWidget(self.tagsTree)
         tree_layout.addLayout(buttons)
 
+        self.sort_button = QCheckBox(self.tr("Sort"))
+        self.sort_button.setChecked(self.settings['tags_sort'])
+        self.sort_button.checkStateChanged.connect(self.sortChanged)
+
         buttonBox = QDialogButtonBox(Qt.Horizontal)
         buttonBox.addButton(QDialogButtonBox.Ok)
         buttonBox.addButton(QDialogButtonBox.Cancel)
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
+        cmd_layout = QHBoxLayout()
+        cmd_layout.addWidget(self.sort_button)
+        cmd_layout.addWidget(buttonBox)
+
         layout = QVBoxLayout()
         layout.addLayout(tree_layout)
-        layout.addWidget(buttonBox)
+        layout.addLayout(cmd_layout)
 
         self.setLayout(layout)
 
+    def sortChanged(self, state):
+        self.tagsTree.sort(state == Qt.Checked)
+
     def accept(self):
+        self.settings['tags_sort'] = self.sort_button.isChecked()
+        self.settings.save()
+
         if not self.db.commit():
             QMessageBox.critical(self.parent(),
                             self.tr("Save tags"),

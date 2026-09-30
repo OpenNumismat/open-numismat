@@ -1285,6 +1285,7 @@ class CollectionSettings(BaseSettings):
             'image_quality': 80,
             'obverse_reverse_weight': 0.5,
             'prices_table': False,
+            'tags_sort': False,
     }
 
     def __init__(self, db):
