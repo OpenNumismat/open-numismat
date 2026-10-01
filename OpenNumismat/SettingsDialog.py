@@ -175,6 +175,11 @@ class MainSettingsPage(QWidget):
         self.useWebcam.setChecked(settings['use_webcam'])
         layout.addRow(self.useWebcam)
 
+        self.useCamera = QCheckBox(
+                        self.tr("Use camera"), self)
+        self.useCamera.setChecked(settings['use_camera'])
+        layout.addRow(self.useCamera)
+
         self.verifySsl = QCheckBox(
                         self.tr("Verify SSL certificate"), self)
         self.verifySsl.setChecked(settings['verify_ssl'])
@@ -300,6 +305,7 @@ class MainSettingsPage(QWidget):
         settings['verify_ssl'] = self.verifySsl.isChecked()
         settings['built_in_viewer'] = self.builtInViewer.isChecked()
         settings['use_webcam'] = self.useWebcam.isChecked()
+        settings['use_camera'] = self.useCamera.isChecked()
         settings['style'] = self.styleSelector.currentText()
         settings['font_size'] = self.fontSizeSelector.currentIndex()
         settings['transparent_color'] = self.transparentColorButton.color()

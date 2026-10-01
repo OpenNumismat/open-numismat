@@ -2020,6 +2020,14 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Fotoaparát</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Fotoaparát (libgphoto2)</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="187"/>
         <source>Exchange with</source>
         <translation type="unfinished"/>
@@ -2453,6 +2461,10 @@ Chcete autorovi poslat hlášení o chybě?</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Použít fotoaparát</translation>
+    </message>
     <message>
         <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>

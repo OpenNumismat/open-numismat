@@ -1942,6 +1942,14 @@ Quer enviar uma mensagem de erro ao autor?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Câmara</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Câmara (libgphoto2)</translation>
+    </message>
+    <message>
         <source>Exchange with</source>
         <translation>Trocar com</translation>
     </message>
@@ -2422,6 +2430,10 @@ arraste e largue para adicionar)</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Utilizar a câmara</translation>
+    </message>
     <message>
         <source>Language</source>
         <translation>Idioma</translation>

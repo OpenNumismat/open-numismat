@@ -36,7 +36,11 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Signal as pyqtSignal
 
 import OpenNumismat
-from OpenNumismat.ImageEditor import CameraDialog, ImageEditorDialog
+from OpenNumismat.ImageEditor import (
+    CameraDialog,
+    CameraGPhotoDialog,
+    ImageEditorDialog,
+)
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools import TemporaryDir
 from OpenNumismat.Tools.Gui import getSaveFileName
@@ -278,6 +282,12 @@ class ImageEdit(ImageLabel):
             camera_act = QAction(QIcon(':/webcam.png'), text, self)
             camera_act.triggered.connect(self.camera)
 
+        camera_gphoto_act = None
+        if Settings()['use_camera']:
+            text = QApplication.translate('ImageEdit', "Camera (libgphoto2)")
+            camera_gphoto_act = QAction(QIcon(':/camera.png'), text, self)
+            camera_gphoto_act.triggered.connect(self.cameraGPhoto)
+
         text = QApplication.translate('ImageEdit', "Paste")
         paste_act = QAction(text, self)
         paste_act.triggered.connect(self.pasteImage)
@@ -306,6 +316,8 @@ class ImageEdit(ImageLabel):
         menu.addAction(load_act)
         if camera_act:
             menu.addAction(camera_act)
+        if camera_gphoto_act:
+            menu.addAction(camera_gphoto_act)
         menu.addAction(open_act)
         if self.image.isNull():
             menu.setDefaultAction(load_act)
@@ -344,6 +356,26 @@ class ImageEdit(ImageLabel):
 
     def camera(self):
         dlg = CameraDialog(self)
+        if dlg.exec() == QDialog.Accepted:
+            image = dlg.image
+            if image:
+                if Settings()['built_in_viewer']:
+                    viewer = ImageEditorDialog(self)
+                    viewer.setImage(image)
+                    viewer.imageSaved.connect(self.imageSaved)
+                    viewer.setTitle(self.title)
+                    viewer.isChanged = True
+                    viewer.markWindowTitle(viewer.isChanged)
+                    viewer._updateEditActions()
+                    viewer.exec()
+                    viewer.deleteLater()
+                else:
+                    self._setNewImage(image)
+
+        dlg.deleteLater()
+
+    def cameraGPhoto(self):
+        dlg = CameraGPhotoDialog(self)
         if dlg.exec() == QDialog.Accepted:
             image = dlg.image
             if image:

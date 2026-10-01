@@ -2018,6 +2018,14 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>دوربین</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>دوربین (libgphoto2)</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="187"/>
         <source>Exchange with</source>
         <translation>تبادل با</translation>
@@ -2451,6 +2459,10 @@ Do you want to send an error message to the author?</source>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>استفاده از دوربین</translation>
+    </message>
     <message>
         <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>

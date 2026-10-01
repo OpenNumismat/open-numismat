@@ -2019,6 +2019,14 @@ Voleu enviar un missatge a l&apos;autor?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Càmera</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Càmera (libgphoto2)</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="187"/>
         <source>Exchange with</source>
         <translation type="unfinished"/>
@@ -2452,6 +2460,10 @@ Voleu enviar un missatge a l&apos;autor?</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Utilitzar la càmera</translation>
+    </message>
     <message>
         <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>

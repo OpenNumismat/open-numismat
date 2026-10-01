@@ -1929,6 +1929,14 @@ Chcesz zgłosić błąd autorowi?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Aparat</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Aparat fotograficzny (libgphoto2)</translation>
+    </message>
+    <message>
         <source>Exchange with</source>
         <translation>Zamień z</translation>
     </message>
@@ -2407,6 +2415,10 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Użyj aparatu</translation>
+    </message>
     <message>
         <source>Language</source>
         <translation>Język</translation>

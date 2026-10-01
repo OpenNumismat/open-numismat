@@ -2030,6 +2030,14 @@ Vai vēlaties nosūtīt kļūdas ziņojumu autoram?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Kamera</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Kamera (libgphoto2)</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="187"/>
         <source>Exchange with</source>
         <translation>Aizstāt ar</translation>
@@ -2464,6 +2472,10 @@ lai pievienotu attēlu)</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Izmantot kameru</translation>
+    </message>
     <message>
         <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>

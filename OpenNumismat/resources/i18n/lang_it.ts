@@ -1937,6 +1937,14 @@ Vuoi mandare un messaggio di errore agli autori?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Fotocamera</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Fotocamera (libgphoto2)</translation>
+    </message>
+    <message>
         <source>Exchange with</source>
         <translation>Scambio con</translation>
     </message>
@@ -2415,6 +2423,10 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Usa la fotocamera</translation>
+    </message>
     <message>
         <source>Language</source>
         <translation>Lingua</translation>
