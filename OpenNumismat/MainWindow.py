@@ -1,4 +1,5 @@
 from datetime import datetime
+import platform
 import sys
 
 from PySide6.QtCore import (
@@ -32,6 +33,7 @@ from PySide6.QtWidgets import (
     QToolButton,
     QWidget,
 )
+from PySide6 import __version__ as PYQT_VERSION_STR
 
 from OpenNumismat.Collection.Collection import Collection
 from OpenNumismat.Collection.Description import DescriptionDialog
@@ -960,11 +962,22 @@ class MainWindow(QMainWindow):
         self._openUrl("https://opennumismat.github.io/references/")
 
     def about(self):
+        version_str = f"{version.AppName} {version.Version}"
+        package_types = []
+        if "__compiled__" in globals():
+            package_types.append('nuitka')
+        if version.Portable:
+            package_types.append('portable')
+        if package_types:
+            version_str += f" ({', '.join(package_types)})"
+
+        message = (f"{version_str}\n\n"
+                   f"Python: {platform.python_version()} ({platform.architecture()[0]})\n"
+                   f"Qt: {PYQT_VERSION_STR}\n\n"
+                   "Copyright (C) 2011-2026 Vitaly Ignatov\n\n")
+        message += self.tr("%s is freeware licensed under a GPLv3.") % version.AppName
         QMessageBox.about(self, self.tr("About %s") % version.AppName,
-                        "%s %s\n\n" % (version.AppName, version.Version) +
-                        "Copyright (C) 2011-2026 Vitaly Ignatov\n\n" +
-                        self.tr("%s is freeware licensed under a GPLv3.") %
-                        version.AppName)
+                          message)
 
     def onlineHelp(self):
         self._openUrl("https://opennumismat.github.io/open-numismat/manual.html")
