@@ -3781,6 +3781,10 @@ Add a new one first.</source>
         <translation>Изтриване</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Сортиране</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation>Запазване на етикети</translation>
     </message>
@@ -3791,6 +3795,17 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Нещо се обърка при отмяна. Моля, рестартирайте!</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Всички)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
