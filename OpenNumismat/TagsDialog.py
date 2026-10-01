@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (
     QDialogButtonBox,
     QFileDialog,
     QHBoxLayout,
+    QLineEdit,
     QMenu,
     QMessageBox,
     QPushButton,
@@ -246,12 +247,22 @@ class EditTagsTreeWidget(QTreeWidget):
         menu.exec(self.mapToGlobal(event.pos()))
 
     def addItem(self):
-        parent_item = self.currentItem()
+        current_item = self.currentItem()
+        if current_item:
+            active_editor = self.viewport().findChild(QLineEdit)
+            if active_editor:
+                self.commitData(active_editor)
+                self.closeEditor(active_editor, QAbstractItemDelegate.NoHint)
+
+        item = QTreeWidgetItem((self.defaultValue(),))
+        parent_item = None
+        if current_item:
+            parent_item = current_item.parent()
         if parent_item:
-            parent_item = parent_item.parent()
-        if not parent_item:
-            parent_item = self
-        item = QTreeWidgetItem(parent_item, (self.defaultValue(),))
+            parent_item.addChild(item)
+        else:
+            self.addTopLevelItem(item)
+
         position = self._getNewPosition()
         item.setData(0, Qt.UserRole + 1, position)
         item.setFlags(item.flags() | Qt.ItemIsEditable)
@@ -406,7 +417,7 @@ class EditTagsTreeWidget(QTreeWidget):
         if len(text) == 0:
             valid = False
         elif text == self.defaultValue():
-            if hint == QAbstractItemDelegate.RevertModelCache:
+            if hint in (QAbstractItemDelegate.RevertModelCache, QAbstractItemDelegate.NoHint):
                 valid = False
         elif item.text(0) == self.defaultValue() and not tag_id:
             if hint == QAbstractItemDelegate.RevertModelCache:
