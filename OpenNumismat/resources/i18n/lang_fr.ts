@@ -3762,6 +3762,10 @@ Add a new one first.</source>
         <translation>Effacer</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Trier</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation type="unfinished"/>
     </message>
@@ -3772,6 +3776,17 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Quelque chose s&apos;est mal passé lors de l&apos;annulation. Merci de recommencer</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Tous)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
