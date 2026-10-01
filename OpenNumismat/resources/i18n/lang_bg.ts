@@ -3805,7 +3805,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>(Untagged)</source>
-        <translation type="unfinished"/>
+        <translation>(Без етикет)</translation>
     </message>
 </context>
 <context>
