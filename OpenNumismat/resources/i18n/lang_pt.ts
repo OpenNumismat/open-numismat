@@ -3781,6 +3781,10 @@ Adicione uma nova primeiro.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Ordenar</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation>Gravar etiquetas</translation>
     </message>
@@ -3791,6 +3795,17 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Algo correu mal ao cancelar. Por favor reinicie</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(tudo)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
