@@ -3763,6 +3763,10 @@ Dodaj wpierw nową.</translation>
         <translation>Usuń</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Sortuj</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation type="unfinished"/>
     </message>
@@ -3773,6 +3777,17 @@ Dodaj wpierw nową.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Błąd podczas cofania. Uruchom ponownie</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Wszystkie)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
