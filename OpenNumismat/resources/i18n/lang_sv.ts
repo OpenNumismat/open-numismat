@@ -3772,6 +3772,10 @@ Lägg till en ny först.</translation>
         <translation>Radera</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Sortera</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation type="unfinished"/>
     </message>
@@ -3782,6 +3786,17 @@ Lägg till en ny först.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Något gick fel när du avbröt. Vänligen starta om</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Alla)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
