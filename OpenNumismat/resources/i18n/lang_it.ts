@@ -3773,6 +3773,10 @@ Aggiungi una nuova pagina prima.</translation>
         <translation>Elimina</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Alfabetico</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation>Salva etichette</translation>
     </message>
@@ -3783,6 +3787,17 @@ Aggiungi una nuova pagina prima.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Eliminazione non riuscita. Riavviare</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Tutti)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
