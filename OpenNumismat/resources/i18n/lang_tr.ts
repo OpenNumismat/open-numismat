@@ -3766,6 +3766,10 @@ Add a new one first.</source>
         <translation>Sil</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Sırala</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation type="unfinished"/>
     </message>
@@ -3776,6 +3780,17 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>İptal edilirken bir şeyler ters gitti. Lütfen yeniden başlatın</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Tümü)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
