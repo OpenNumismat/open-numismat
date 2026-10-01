@@ -2763,7 +2763,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>You already have the latest version.</source>
-        <translation>Вече имате най-новата версия.</translation>
+        <translation>Няма налични нови актуализации.</translation>
     </message>
     <message>
         <source>New version</source>
