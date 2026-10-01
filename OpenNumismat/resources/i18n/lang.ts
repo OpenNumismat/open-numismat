@@ -3759,6 +3759,10 @@ Add a new one first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3768,6 +3772,17 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
