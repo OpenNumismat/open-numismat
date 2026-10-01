@@ -3781,6 +3781,10 @@ Add a new one first.</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Сортировать</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation>Сохранение меток</translation>
     </message>
@@ -3791,6 +3795,17 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Что-то пошло не так при отмене. Пожалуйста, перезапустите приложение</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Все)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
