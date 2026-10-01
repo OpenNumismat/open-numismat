@@ -396,6 +396,11 @@ class EditTagsTreeWidget(QTreeWidget):
     def closeEditor(self, editor, hint):
         super().closeEditor(editor, hint)
 
+        item = self.currentItem()
+        tag_id = item.data(0, Qt.UserRole)
+        position = item.data(0, Qt.UserRole + 1) or 1
+        parent_item = item.parent()
+
         valid = True
         text = editor.text().strip()
         if len(text) == 0:
@@ -403,15 +408,13 @@ class EditTagsTreeWidget(QTreeWidget):
         elif text == self.defaultValue():
             if hint == QAbstractItemDelegate.RevertModelCache:
                 valid = False
-
-        item = self.currentItem()
-        tag_id = item.data(0, Qt.UserRole)
-        position = item.data(0, Qt.UserRole + 1) or 1
-        parent_item = item.parent()
+        elif item.text(0) == self.defaultValue() and not tag_id:
+            if hint == QAbstractItemDelegate.RevertModelCache:
+                valid = False
 
         if not valid and not tag_id:
-            if item.parent():
-                item.parent().removeChild(item)
+            if parent_item:
+                parent_item.removeChild(item)
             else:
                 index = self.currentIndex()
                 self.takeTopLevelItem(index.row())
