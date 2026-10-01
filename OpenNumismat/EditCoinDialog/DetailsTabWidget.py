@@ -51,6 +51,12 @@ class DetailsTabWidget(QTabWidget):
         self.createItems()
         self.createPages()
 
+        if self.model.settings['tags_used']:
+            self.model.tagsChanged.connect(self.tagsChanged)
+
+    def tagsChanged(self):
+        self.tags_item.update()
+
     def createPages(self):
         self.createCoinPage()
         if self.settings['prices_table']:
@@ -714,7 +720,6 @@ class FormDetailsTabWidget(DetailsTabWidget):
         dialog = TagsDialog(self.model, self)
         res = dialog.exec()
         if res == QDialog.Accepted:
-            self.tags_item.update()
             self.model.tagsChanged.emit()
         dialog.deleteLater()
 
