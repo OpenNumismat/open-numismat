@@ -3774,6 +3774,10 @@ Add a new one first.</source>
         <translation>Видалити</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Сортувати</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation type="unfinished"/>
     </message>
@@ -3784,6 +3788,17 @@ Add a new one first.</source>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Щось пішло не так при відміні. Будь-ласка, перезапустіть програму</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Усе)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
