@@ -3775,6 +3775,10 @@ Fügen Sie erst eine Neue ein.</translation>
         <translation>Löschen</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Sortieren</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation>Markierungen sichern</translation>
     </message>
@@ -3785,6 +3789,17 @@ Fügen Sie erst eine Neue ein.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Fehler beim Abbrechen. Bitte neu starten</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(Alle)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
