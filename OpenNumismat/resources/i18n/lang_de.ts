@@ -1508,6 +1508,14 @@ und noch einmal versuchen.</translation>
         <translation>Löschen</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Markierungen</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Wert eingeben</translation>
     </message>
