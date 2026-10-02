@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer
+from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QTimer
 from PySide6.QtGui import QIcon, QImage, QKeySequence, QPainter, QPixmap
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
@@ -23,6 +23,7 @@ import OpenNumismat
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
 from OpenNumismat.Tools.misc import readImageFilters
+from OpenNumismat.Tools.db_utils import execute_query
 
 
 class TagsTreeWidget(QTreeWidget):
@@ -43,9 +44,9 @@ class TagsTreeWidget(QTreeWidget):
     def update(self):
         self.clear()
 
-        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
-        query.exec(sql)
+        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
+        execute_query(query, sql)
 
         items = {}
         while query.next():
@@ -161,9 +162,9 @@ class EditTagsTreeWidget(QTreeWidget):
     def update(self):
         self.clear()
 
-        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
         query = QSqlQuery(self.db)
-        query.exec(sql)
+        sql = "SELECT id, tag, position, parent_id, icon FROM tags ORDER BY position"
+        execute_query(query, sql)
 
         items = {}
         while query.next():
@@ -280,9 +281,10 @@ class EditTagsTreeWidget(QTreeWidget):
         self.editItem(item)
 
     def _getNewPosition(self):
+        query = QSqlQuery(self.db)
         sql = "SELECT MAX(id) FROM tags"
-        query = QSqlQuery(sql, self.db)
-        query.exec()
+        execute_query(query, sql)
+
         query.first()
         max_id = query.record().value(0)
 
@@ -343,11 +345,10 @@ class EditTagsTreeWidget(QTreeWidget):
         if item:
             tag_id = item.data(0, Qt.UserRole)
 
-            sql = "UPDATE tags SET icon=NULL WHERE id=?"
             query = QSqlQuery(self.db)
-            query.prepare(sql)
-            query.addBindValue(tag_id)
-            query.exec()
+            sql = "UPDATE tags SET icon=NULL WHERE id=?"
+            params = (tag_id,)
+            execute_query(query, sql, params)
 
             item.setData(0, Qt.DecorationRole, None)
 
@@ -373,12 +374,10 @@ class EditTagsTreeWidget(QTreeWidget):
         if item:
             tag_id = item.data(0, Qt.UserRole)
 
-            sql = "UPDATE tags SET icon=? WHERE id=?"
             query = QSqlQuery(self.db)
-            query.prepare(sql)
-            query.addBindValue(buffer.data())
-            query.addBindValue(tag_id)
-            query.exec()
+            sql = "UPDATE tags SET icon=? WHERE id=?"
+            params = (buffer.data(), tag_id)
+            execute_query(query, sql, params)
 
             pixmap = QPixmap()
             if pixmap.loadFromData(buffer.data()):
@@ -387,17 +386,15 @@ class EditTagsTreeWidget(QTreeWidget):
     def remove(self, item):
         tag_id = item.data(0, Qt.UserRole)
 
-        sql = "DELETE FROM tags WHERE id=?"
         query = QSqlQuery(self.db)
-        query.prepare(sql)
-        query.addBindValue(tag_id)
-        query.exec()
+
+        sql = "DELETE FROM tags WHERE id=?"
+        params = (tag_id,)
+        execute_query(query, sql, params)
 
         sql = "DELETE FROM coins_tags WHERE tag_id=?"
-        query = QSqlQuery(self.db)
-        query.prepare(sql)
-        query.addBindValue(tag_id)
-        query.exec()
+        params = (tag_id,)
+        execute_query(query, sql, params)
 
     def commitData(self, editor):
         text = editor.text().strip()
@@ -411,15 +408,17 @@ class EditTagsTreeWidget(QTreeWidget):
         tag_id = item.data(0, Qt.UserRole)
         position = item.data(0, Qt.UserRole + 1) or 1
         parent_item = item.parent()
+        parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
+        tag_text = item.text(0)
 
         valid = True
-        text = editor.text().strip()
-        if len(text) == 0:
+        current_text = editor.text().strip()
+        if len(current_text) == 0:
             valid = False
-        elif text == self.defaultValue():
+        elif current_text == self.defaultValue():
             if hint in (QAbstractItemDelegate.RevertModelCache, QAbstractItemDelegate.NoHint):
                 valid = False
-        elif item.text(0) == self.defaultValue() and not tag_id:
+        elif tag_text == self.defaultValue() and not tag_id:
             if hint == QAbstractItemDelegate.RevertModelCache:
                 valid = False
 
@@ -431,18 +430,20 @@ class EditTagsTreeWidget(QTreeWidget):
                 self.takeTopLevelItem(index.row())
             return
 
-        sql = "INSERT OR REPLACE INTO tags (id, tag, position, parent_id) VALUES (?, ?, ?, ?)"
         query = QSqlQuery(self.db)
-        query.prepare(sql)
-        query.addBindValue(tag_id)
-        query.addBindValue(item.text(0))
-        query.addBindValue(position)
-        if parent_item:
-            query.addBindValue(parent_item.data(0, Qt.UserRole))
-        else:
-            query.addBindValue(None)
 
-        query.exec()
+        sql = "SELECT 1 FROM tags WHERE tag=? AND parent_id IS ? AND id IS NOT ?"
+        params = (tag_text, parent_id, tag_id)
+        execute_query(query, sql, params)
+        if query.first():
+            QMessageBox.warning(self, self.tr("Tags"),
+                                self.tr("This tag has already been added"))
+            QTimer.singleShot(0, lambda: self.editItem(item))
+            return
+
+        sql = "INSERT OR REPLACE INTO tags (id, tag, position, parent_id) VALUES (?, ?, ?, ?)"
+        params = (tag_id, tag_text, position, parent_id)
+        execute_query(query, sql, params)
 
         tag_id = query.lastInsertId()
         item.setData(0, Qt.UserRole, tag_id)
@@ -546,17 +547,15 @@ class TagsDialog(QDialog):
         self.settings.save()
 
         if not self.db.commit():
-            QMessageBox.critical(self.parent(),
-                            self.tr("Save tags"),
-                            self.tr("Something went wrong when saving. Please restart"))
+            QMessageBox.critical(self, self.tr("Save tags"),
+                    self.tr("Something went wrong when saving. Please restart"))
             self.db.rollback()
 
         super().accept()
 
     def reject(self):
         if not self.db.rollback():
-            QMessageBox.critical(self.parent(),
-                            self.tr("Save tags"),
-                            self.tr("Something went wrong when canceling. Please restart"))
+            QMessageBox.critical(self, self.tr("Save tags"),
+                    self.tr("Something went wrong when canceling. Please restart"))
 
         super().reject()
