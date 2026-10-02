@@ -1502,6 +1502,14 @@ and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation type="unfinished"></translation>
     </message>
