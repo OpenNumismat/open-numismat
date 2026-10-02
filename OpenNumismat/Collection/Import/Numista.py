@@ -52,7 +52,7 @@ class NumistaAuthentication(QDialog):
             self.NUMISTA_CLIENT_ID = "opennumismat"
 
         self.page = QWebView(self)
-        self.page.setPage(WebEnginePage(self))
+        self.page.setPage(WebEnginePage(self.page))
         self.page.urlChanged.connect(self.onUrlChanged)
 
         redirect_uri = 'local'  # Should normally be a URL to your application
@@ -139,33 +139,36 @@ class ImportNumista(_Import2):
     def _connect(self, src):
         dialog = NumistaAuthentication(self.parent())
 
-        result = dialog.exec()
-        if result == QDialog.Accepted:
-            url = (f"{self.ENDPOINT}/oauth_token?"
-                   f"code={dialog.authorization_code}"
-                   f"&client_id={self.NUMISTA_CLIENT_ID}"
-                   f"&client_secret={self.NUMISTA_API_KEY}"
-                   "&redirect_uri=local")
-            response_data = self.http.get(url, cache=False)
-            if not response_data:
-                return False
+        try:
+            result = dialog.exec()
+            if result == QDialog.Accepted:
+                url = (f"{self.ENDPOINT}/oauth_token?"
+                       f"code={dialog.authorization_code}"
+                       f"&client_id={self.NUMISTA_CLIENT_ID}"
+                       f"&client_secret={self.NUMISTA_API_KEY}"
+                       "&redirect_uri=local")
+                response_data = self.http.get(url, cache=False)
+                if not response_data:
+                    return False
 
-            data = json.loads(response_data.decode())
-            access_token = data['access_token']
-            user_id = data['user_id']
+                data = json.loads(response_data.decode())
+                access_token = data['access_token']
+                user_id = data['user_id']
 
-            url = f"{self.ENDPOINT}/users/{user_id}/collected_items?lang={self.language}"
-            headers = {'Numista-API-Key': self.NUMISTA_API_KEY,
-                       'Authorization': f'Bearer {access_token}'}
-            response_data = self.http.get(url, headers=headers, cache=False)
-            if not response_data:
-                return False
+                url = f"{self.ENDPOINT}/users/{user_id}/collected_items?lang={self.language}"
+                headers = {'Numista-API-Key': self.NUMISTA_API_KEY,
+                           'Authorization': f'Bearer {access_token}'}
+                response_data = self.http.get(url, headers=headers, cache=False)
+                if not response_data:
+                    return False
 
-            self.coins_data = json.loads(response_data.decode())
+                self.coins_data = json.loads(response_data.decode())
 
-            return True
+                return True
 
-        return False
+            return False
+        finally:
+            dialog.deleteLater()
 
     def _getRowsCount(self, connection):
         return len(self.coins_data['items'])

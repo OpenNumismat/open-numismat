@@ -23,11 +23,19 @@ class WebEnginePage(QWebEnginePage):
 
 
 class QWebView(QWebEngineView):
+    _profile = None
+
+    @classmethod
+    def _get_profile(cls):
+        if cls._profile is None:
+            cls._profile = QWebEngineProfile(QApplication.instance())
+            cls._profile.setHttpUserAgent(version.UserAgent)
+        return cls._profile
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        profile = QWebEngineProfile(self)
-        profile.setHttpUserAgent(version.UserAgent)
+        profile = self._get_profile()
 
         if QApplication.platformName() != 'wayland':
             self.setAttribute(Qt.WA_NativeWindow)
