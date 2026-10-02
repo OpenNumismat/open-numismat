@@ -3,6 +3,7 @@ from PySide6.QtGui import QIcon, QImage, QKeySequence, QPainter, QPixmap
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
+    QAbstractItemView,
     QApplication,
     QCheckBox,
     QDialog,
@@ -152,6 +153,11 @@ class EditTagsTreeWidget(QTreeWidget):
         self.db = model.database()
         self.sorted = model.settings['tags_sort']
 
+        self.setDragEnabled(True)
+        self.setAcceptDrops(True)
+        self.setDragDropMode(QAbstractItemView.InternalMove)
+        self.setDefaultDropAction(Qt.MoveAction)
+
         self.setHeaderHidden(True)
 
         self.update()
@@ -246,6 +252,60 @@ class EditTagsTreeWidget(QTreeWidget):
             act.setDisabled(True)
 
         menu.exec(self.mapToGlobal(event.pos()))
+
+    def dragMoveEvent(self, event):
+        super().dragMoveEvent(event)
+
+        if self.sorted:
+            target_item = self.itemAt(event.position().toPoint())
+            indicator = self.dropIndicatorPosition()
+            if target_item:
+                if indicator == QAbstractItemView.DropIndicatorPosition.OnItem:
+                    target_parent_id = target_item.data(0, Qt.UserRole)
+                else:
+                    parent_item = target_item.parent()
+                    target_parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
+            else:
+                target_parent_id = None
+
+            moved_item = self.currentItem()
+            parent_item = moved_item.parent()
+            moved_item_parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
+            if moved_item_parent_id == target_parent_id:
+                event.ignore()
+                return
+
+        event.accept()
+
+    def dropEvent(self, event):
+        moved_item = self.currentItem()
+        if not moved_item:
+            super().dropEvent(event)
+            return
+
+        super().dropEvent(event)
+
+        target_item = self.itemAt(event.position().toPoint())
+        indicator = self.dropIndicatorPosition()
+        if target_item:
+            if indicator == QAbstractItemView.DropIndicatorPosition.OnItem:
+                target_parent_id = target_item.data(0, Qt.UserRole)
+            else:
+                parent_item = target_item.parent()
+                target_parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
+        else:
+            target_parent_id = None
+
+        tag_id = moved_item.data(0, Qt.UserRole)
+
+        query = QSqlQuery(self.db)
+        sql = "UPDATE tags SET parent_id=? WHERE id=?"
+        params = (target_parent_id, tag_id)
+        execute_query(query, sql, params)
+        moved_item.setData(0, Qt.UserRole + 2, target_parent_id)
+
+        if self.sorted:
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
 
     def addItem(self):
         current_item = self.currentItem()
