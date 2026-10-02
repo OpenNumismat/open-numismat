@@ -1946,6 +1946,10 @@ Quer enviar uma mensagem de erro ao autor?</translation>
         <translation>Abrir</translation>
     </message>
     <message>
+        <source>Camera</source>
+        <translation>Câmara</translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation>Colar</translation>
     </message>
@@ -2093,6 +2097,14 @@ arraste e largue para adicionar)</translation>
         <translation>Editor de imagem</translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation>A gravar</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation>A transparência será perdida ao gravar no formato seleccionado. Deseja continuar?</translation>
+    </message>
+    <message>
         <source>Image was changed. Save changes?</source>
         <translation>A imagem foi alterada. Gravar alterações?</translation>
     </message>
@@ -2103,6 +2115,18 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Don&apos;t show this again</source>
         <translation>Não mostrar novamente</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s</source>
+        <translation>A transferir modelo de IA %s</translation>
+    </message>
+    <message>
+        <source>Downloading AI model %s (%d MB)</source>
+        <translation>A transferir o modelo de IA %s (%d MB)</translation>
+    </message>
+    <message>
+        <source>Failed to download: %s</source>
+        <translation>Falha ao transferir: %s</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2156,10 +2180,6 @@ arraste e largue para adicionar)</translation>
         <source>Downloading</source>
         <translation>A transferir</translation>
     </message>
-    <message>
-        <source>Downloading AI model %s (%d Mb)</source>
-        <translation>A transferir modelo de IA %s (%d MB)</translation>
-    </message>
 </context>
 <context>
     <name>ImageEditorWindow</name>
@@ -2197,6 +2217,14 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Save as...</source>
         <translation>Gravar como...</translation>
+    </message>
+    <message>
+        <source>Saving</source>
+        <translation>A gravar</translation>
+    </message>
+    <message>
+        <source>Transparency will be lost when saving in the selected format. Continue?</source>
+        <translation>A transparência será perdida ao gravar no formato seleccionado. Deseja continuar?</translation>
     </message>
 </context>
 <context>
@@ -2272,6 +2300,14 @@ arraste e largue para adicionar)</translation>
     <message>
         <source>Trim ID in title</source>
         <translation>Aparar ID no título</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Chave</translation>
+    </message>
+    <message>
+        <source>Client ID</source>
+        <translation>ID de cliente</translation>
     </message>
     <message>
         <source>Price currency</source>
@@ -3745,6 +3781,10 @@ Adicione uma nova primeiro.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Sort</source>
+        <translation>Ordenar</translation>
+    </message>
+    <message>
         <source>Save tags</source>
         <translation>Gravar etiquetas</translation>
     </message>
@@ -3755,6 +3795,17 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Something went wrong when canceling. Please restart</source>
         <translation>Algo correu mal ao cancelar. Por favor reinicie</translation>
+    </message>
+</context>
+<context>
+    <name>TagsView</name>
+    <message>
+        <source>(All)</source>
+        <translation>(tudo)</translation>
+    </message>
+    <message>
+        <source>(Untagged)</source>
+        <translation>(sem etiqueta)</translation>
     </message>
 </context>
 <context>
