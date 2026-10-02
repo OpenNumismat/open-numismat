@@ -1519,7 +1519,7 @@ and try again.</source>
     </message>
     <message>
         <source>This tag has already been added</source>
-        <translation type="unfinished"/>
+        <translation>Вече съществува етикет с това име</translation>
     </message>
     <message>
         <source>Enter value</source>
