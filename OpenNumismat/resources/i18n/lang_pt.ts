@@ -1519,7 +1519,7 @@ e tente novamente.</translation>
     </message>
     <message>
         <source>This tag has already been added</source>
-        <translation type="unfinished"/>
+        <translation>Esta etiqueta já foi adicionada</translation>
     </message>
     <message>
         <source>Enter value</source>
