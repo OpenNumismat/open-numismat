@@ -1511,6 +1511,14 @@ and try again.</source>
         <translation>Видалити</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Теги</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Введіть значення</translation>
     </message>
