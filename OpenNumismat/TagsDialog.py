@@ -17,6 +17,7 @@ from PySide6.QtWidgets import (
     QStyle,
     QTreeWidget,
     QTreeWidgetItem,
+    QTreeWidgetItemIterator,
     QVBoxLayout,
 )
 
@@ -283,8 +284,6 @@ class EditTagsTreeWidget(QTreeWidget):
             super().dropEvent(event)
             return
 
-        super().dropEvent(event)
-
         target_item = self.itemAt(event.position().toPoint())
         indicator = self.dropIndicatorPosition()
         if target_item:
@@ -299,10 +298,30 @@ class EditTagsTreeWidget(QTreeWidget):
         tag_id = moved_item.data(0, Qt.UserRole)
 
         query = QSqlQuery(self.db)
+
         sql = "UPDATE tags SET parent_id=? WHERE id=?"
         params = (target_parent_id, tag_id)
         execute_query(query, sql, params)
         moved_item.setData(0, Qt.UserRole + 2, target_parent_id)
+
+        super().dropEvent(event)
+
+        if not self.sorted:
+            iterator = QTreeWidgetItemIterator(self)
+            flat_index = 0
+
+            sql = "UPDATE tags SET position=? WHERE id=?"
+            while iterator.value():
+                item = iterator.value()
+
+                item_id = item.data(0, Qt.UserRole)
+                params = (flat_index, item_id)
+                execute_query(query, sql, params)
+
+                moved_item.setData(0, Qt.UserRole + 1, flat_index)
+
+                flat_index += 1
+                iterator += 1
 
         if self.sorted:
             self.sortItems(0, Qt.SortOrder.AscendingOrder)
@@ -342,14 +361,14 @@ class EditTagsTreeWidget(QTreeWidget):
 
     def _getNewPosition(self):
         query = QSqlQuery(self.db)
-        sql = "SELECT MAX(id) FROM tags"
+        sql = "SELECT MAX(position) FROM tags"
         execute_query(query, sql)
 
         query.first()
-        max_id = query.record().value(0)
+        max_position = query.record().value(0)
 
-        if max_id:
-            position = max_id + 1
+        if max_position:
+            position = max_position + 1
         else:
             position = 0
 
