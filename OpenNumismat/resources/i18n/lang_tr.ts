@@ -3562,6 +3562,22 @@ Please update OpenNumismat</source>
         <translation>İlk Satın Alma: %s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>Çil</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>Çok çok iyi</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>Çok iyi</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>İyi</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"/>
     </message>
