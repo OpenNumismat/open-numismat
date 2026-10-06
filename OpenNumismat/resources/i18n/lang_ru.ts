@@ -3576,6 +3576,22 @@ Please update OpenNumismat</source>
         <translation>Первая покупка: %s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>Unc</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>XF</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>VF</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Хорошая</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation>Оценка имеющихся: %d</translation>
     </message>
