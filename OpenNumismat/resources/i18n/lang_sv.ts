@@ -3568,6 +3568,22 @@ Please update OpenNumismat</source>
         <translation>Första köp:% s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>Unc</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>XF</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>VF</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Bra</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation>Uppskattning ägd:% d</translation>
     </message>
