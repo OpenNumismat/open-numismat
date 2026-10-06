@@ -3556,6 +3556,22 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"></translation>
     </message>
