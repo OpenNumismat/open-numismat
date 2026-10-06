@@ -3559,6 +3559,22 @@ Please update OpenNumismat</source>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>Stan I - Menniczy</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>Stan II - Znakomity</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>Stan III - Bardzo piękny</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Stan IV - Piękny</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation type="unfinished"/>
     </message>
