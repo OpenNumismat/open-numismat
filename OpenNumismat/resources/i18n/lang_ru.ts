@@ -1519,7 +1519,7 @@ and try again.</source>
     </message>
     <message>
         <source>This tag has already been added</source>
-        <translation type="unfinished"/>
+        <translation>Этот тег уже добавлен</translation>
     </message>
     <message>
         <source>Enter value</source>
@@ -2311,11 +2311,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation>Key</translation>
     </message>
     <message>
         <source>Client ID</source>
-        <translation type="unfinished"/>
+        <translation>Client ID</translation>
     </message>
     <message>
         <source>Price currency</source>
