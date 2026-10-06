@@ -3568,6 +3568,22 @@ Please update OpenNumismat</source>
         <translation>Primo acquisto: %s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>FDC</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>SPL</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>BB</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Molto bella</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation>Stima posseduta: %d</translation>
     </message>
