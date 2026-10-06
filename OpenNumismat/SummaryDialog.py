@@ -201,17 +201,17 @@ class SummaryDialog(QDialog):
                 quantity = 1
 
             try:
-                if grade[:2] in ('UN', 'MS'):
+                if grade == self.tr("Unc") or grade[:2] in ('UN', 'MS'):
                     price = price4 if price4 else price3 * 1.6 if price3 else price2 * 2.2 if price2 else price1 * 5.5 if price1 else 0
-                elif grade[:2] in ('XF', 'EF'):
+                elif grade == self.tr("XF") or grade[:2] in ('XF', 'EF'):
                     price = price3 if price3 else price4 * 0.6 if price4 else price2 * 1.4 if price2 else price1 * 3.5 if price1 else 0
                 elif grade[:2] in ('AU',):
                     priceU = price4 if price4 else price3 * 1.6 if price3 else price2 * 2.2 if price2 else price1 * 5.5 if price1 else 0
                     priceX = price3 if price3 else price4 * 0.6 if price4 else price2 * 1.4 if price2 else price1 * 3.5 if price1 else 0
                     price = priceX + (priceU - priceX) * 0.6
-                elif grade[:2] in ('VF',):
+                elif grade == self.tr("VF") or grade[:2] in ('VF',):
                     price = price2 if price2 else price3 * 0.7 if price3 else price4 * 0.45 if price4 else price1 * 2.5 if price1 else 0
-                elif grade[:2] in ('F', 'FI'):
+                elif grade == self.tr("Fine") or grade[:2] in ('F', 'FI'):
                     price = price1 if price1 else price2 * 0.4 if price2 else price3 * 0.3 if price3 else price4 * 0.18 if price4 else 0
                 elif grade[:2] in ('VG',):
                     price = price1 * 0.5 if price1 else price2 * 0.2 if price2 else price3 * 0.14 if price3 else price4 * 0.09 if price4 else 0
