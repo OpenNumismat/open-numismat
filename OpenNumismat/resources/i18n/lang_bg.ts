@@ -684,7 +684,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Fine</source>
-        <translation>Fine</translation>
+        <translation>F</translation>
     </message>
     <message>
         <source>VF</source>
@@ -3581,7 +3581,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Fine</source>
-        <translation>отлично F</translation>
+        <translation>F</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>
