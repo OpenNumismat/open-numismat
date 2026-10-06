@@ -1514,14 +1514,6 @@ e tente novamente.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <source>Tags</source>
-        <translation>Etiquetas</translation>
-    </message>
-    <message>
-        <source>This tag has already been added</source>
-        <translation>Esta etiqueta já foi adicionada</translation>
-    </message>
-    <message>
         <source>Enter value</source>
         <translation>Inserir valor</translation>
     </message>
