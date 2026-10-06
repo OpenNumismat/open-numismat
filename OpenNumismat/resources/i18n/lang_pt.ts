@@ -3576,6 +3576,22 @@ Por favor, actualize o Openumismat.</translation>
         <translation>!ª compra: %s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>NC</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>B</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>MBC</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Fina</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation>Estimativa possuídas: %d</translation>
     </message>
