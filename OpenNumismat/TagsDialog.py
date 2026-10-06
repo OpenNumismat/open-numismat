@@ -331,7 +331,8 @@ class EditTagsTreeWidget(QTreeWidget):
         if current_item:
             active_editor = self.viewport().findChild(QLineEdit)
             if active_editor:
-                self.commitData(active_editor)
+                if not self.applyData(active_editor):
+                    return
                 self.closeEditor(active_editor, QAbstractItemDelegate.NoHint)
 
         item = QTreeWidgetItem((self.defaultValue(),))
@@ -381,11 +382,7 @@ class EditTagsTreeWidget(QTreeWidget):
     def deleteItem(self):
         item = self.currentItem()
         if item:
-            if item.parent():
-                item.parent().removeChild(item)
-            else:
-                index = self.currentIndex()
-                self.takeTopLevelItem(index.row())
+            self.removeItem(item)
 
             self.execForItem(self.remove, item)
 
@@ -476,61 +473,67 @@ class EditTagsTreeWidget(QTreeWidget):
         execute_query(query, sql, params)
 
     def commitData(self, editor):
+        self.applyData(editor)
+
+        super().commitData(editor)
+
+    def applyData(self, editor):
         text = editor.text().strip()
-        if len(text) > 0:
-            super().commitData(editor)
-
-    def closeEditor(self, editor, hint):
-        super().closeEditor(editor, hint)
-
         item = self.currentItem()
         tag_id = item.data(0, Qt.UserRole)
+
+        if not text or text == self.defaultValue():
+            if not tag_id:
+                self.removeItem(item)
+            return False
+
         position = item.data(0, Qt.UserRole + 1) or 1
         parent_item = item.parent()
         parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
-        tag_text = item.text(0)
-
-        valid = True
-        current_text = editor.text().strip()
-        if len(current_text) == 0:
-            valid = False
-        elif current_text == self.defaultValue():
-            if hint in (QAbstractItemDelegate.RevertModelCache, QAbstractItemDelegate.NoHint):
-                valid = False
-        elif tag_text == self.defaultValue() and not tag_id:
-            if hint == QAbstractItemDelegate.RevertModelCache:
-                valid = False
-
-        if not valid and not tag_id:
-            if parent_item:
-                parent_item.removeChild(item)
-            else:
-                index = self.currentIndex()
-                self.takeTopLevelItem(index.row())
-            return
 
         query = QSqlQuery(self.db)
 
         sql = "SELECT 1 FROM tags WHERE tag=? AND parent_id IS ? AND id IS NOT ?"
-        params = (tag_text, parent_id, tag_id)
+        params = (text, parent_id, tag_id)
         execute_query(query, sql, params)
         if query.first():
-            QMessageBox.warning(self, self.tr("Tags"),
-                                self.tr("This tag has already been added"))
+#            QMessageBox.warning(self, self.tr("Tags"),
+#                                self.tr("This tag has already been added"))
             QTimer.singleShot(0, lambda: self.editItem(item))
-            return
+            return False
 
         sql = "INSERT OR REPLACE INTO tags (id, tag, position, parent_id) VALUES (?, ?, ?, ?)"
-        params = (tag_id, tag_text, position, parent_id)
+        params = (tag_id, text, position, parent_id)
         execute_query(query, sql, params)
 
         tag_id = query.lastInsertId()
         item.setData(0, Qt.UserRole, tag_id)
+        item.setText(0, text)
 
         if self.sorted:
             self.sortItems(0, Qt.SortOrder.AscendingOrder)
 
             self.scrollToItem(item)
+
+        return True
+
+    def closeEditor(self, editor, hint):
+        if hint == QAbstractItemDelegate.RevertModelCache:
+            item = self.currentItem()
+            tag_id = item.data(0, Qt.UserRole)
+
+            if not tag_id:
+                self.removeItem(item)
+
+        super().closeEditor(editor, hint)
+
+    def removeItem(self, item):
+        parent_item = item.parent()
+        if parent_item:
+            parent_item.removeChild(item)
+        else:
+            index = self.currentIndex()
+            self.takeTopLevelItem(index.row())
 
     def sort(self, sort):
         self.sorted = sort
