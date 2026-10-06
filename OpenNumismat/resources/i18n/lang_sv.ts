@@ -1509,6 +1509,14 @@ and try again.</source>
         <translation>Radera</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Ange värde</translation>
     </message>
@@ -3558,6 +3566,22 @@ Please update OpenNumismat</source>
     <message>
         <source>First purchase: %s</source>
         <translation>Första köp:% s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>Unc</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>XF</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>VF</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Bra</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

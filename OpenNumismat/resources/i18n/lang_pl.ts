@@ -1501,6 +1501,14 @@ and try again.</source>
         <translation>Usuń</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Podaj wartość</translation>
     </message>
@@ -3549,6 +3557,22 @@ Please update OpenNumismat</source>
     <message>
         <source>First purchase: %s</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>Stan I - Menniczy</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>Stan II - Znakomity</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>Stan III - Bardzo piękny</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Stan IV - Piękny</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

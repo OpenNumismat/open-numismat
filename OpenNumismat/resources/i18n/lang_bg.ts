@@ -1514,6 +1514,14 @@ and try again.</source>
         <translation>Изтриване</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Етикети</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation>Вече съществува етикет с това име</translation>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Въведете стойност</translation>
     </message>
@@ -3566,6 +3574,22 @@ Please update OpenNumismat</source>
     <message>
         <source>First purchase: %s</source>
         <translation>Първа покупка: %s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>UNC</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>XF</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>VF</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>отлично F</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

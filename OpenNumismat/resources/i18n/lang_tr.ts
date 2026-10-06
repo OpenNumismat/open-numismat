@@ -1505,6 +1505,14 @@ and try again.</source>
         <translation>Sil</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Değer giriniz</translation>
     </message>
@@ -3552,6 +3560,22 @@ Please update OpenNumismat</source>
     <message>
         <source>First purchase: %s</source>
         <translation>İlk Satın Alma: %s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>Çil</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>Çok çok iyi</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>Çok iyi</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>İyi</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

@@ -1514,6 +1514,14 @@ and try again.</source>
         <translation>Удалить</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Метки</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation>Этот тег уже добавлен</translation>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Введите значение</translation>
     </message>
@@ -2102,7 +2110,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Transparency will be lost when saving in the selected format. Continue?</source>
-        <translation type="unfinished"/>
+        <translation>При сохранении в выбранном формате прозрачность будет утрачена. Продолжить?</translation>
     </message>
     <message>
         <source>Image was changed. Save changes?</source>
@@ -2224,7 +2232,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Transparency will be lost when saving in the selected format. Continue?</source>
-        <translation type="unfinished"/>
+        <translation>При сохранении в выбранном формате прозрачность будет утрачена. Продолжить?</translation>
     </message>
 </context>
 <context>
@@ -2303,11 +2311,11 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation>Key</translation>
     </message>
     <message>
         <source>Client ID</source>
-        <translation type="unfinished"/>
+        <translation>Client ID</translation>
     </message>
     <message>
         <source>Price currency</source>
@@ -3566,6 +3574,22 @@ Please update OpenNumismat</source>
     <message>
         <source>First purchase: %s</source>
         <translation>Первая покупка: %s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>Unc</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>XF</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>VF</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Хорошая</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

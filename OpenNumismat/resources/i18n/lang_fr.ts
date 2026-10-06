@@ -1502,6 +1502,14 @@ and try again.</source>
         <translation>Effacer</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Étiquettes</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Saisir une valeur</translation>
     </message>
@@ -3549,6 +3557,22 @@ Please update OpenNumismat</source>
     <message>
         <source>First purchase: %s</source>
         <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>N&apos;a pas circulé</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>Superbe</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>Très très belle</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Très belle</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

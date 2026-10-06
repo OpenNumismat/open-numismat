@@ -1513,6 +1513,14 @@ y prueba de nuevo.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Etiquetas</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Introduce valor</translation>
     </message>
@@ -3565,6 +3573,22 @@ Por favor, actualiza OpenNumismat</translation>
     <message>
         <source>First purchase: %s</source>
         <translation>Primera compra: %s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>SC</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>EBC</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>MBC</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>BC Fine</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

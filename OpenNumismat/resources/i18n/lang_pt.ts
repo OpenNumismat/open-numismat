@@ -1514,6 +1514,14 @@ e tente novamente.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Etiquetas</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation>Esta etiqueta já foi adicionada</translation>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Inserir valor</translation>
     </message>
@@ -3566,6 +3574,22 @@ Por favor, actualize o Openumismat.</translation>
     <message>
         <source>First purchase: %s</source>
         <translation>!ª compra: %s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>NC</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>B</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>MBC</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>Fina</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>

@@ -1508,6 +1508,14 @@ und noch einmal versuchen.</translation>
         <translation>Löschen</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Markierungen</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Wert eingeben</translation>
     </message>
@@ -3560,6 +3568,22 @@ Bitte OpenNumismat aktualisieren</translation>
     <message>
         <source>First purchase: %s</source>
         <translation>Erster Kauf: %s</translation>
+    </message>
+    <message>
+        <source>Unc</source>
+        <translation>pfr</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>vz</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>ss</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>schön</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>
