@@ -3570,6 +3570,22 @@ Bitte OpenNumismat aktualisieren</translation>
         <translation>Erster Kauf: %s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>schön</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation>Geschätzt im Besitz: %d</translation>
     </message>
