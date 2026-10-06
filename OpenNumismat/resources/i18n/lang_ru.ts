@@ -1514,14 +1514,6 @@ and try again.</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <source>Tags</source>
-        <translation>Метки</translation>
-    </message>
-    <message>
-        <source>This tag has already been added</source>
-        <translation>Этот тег уже добавлен</translation>
-    </message>
-    <message>
         <source>Enter value</source>
         <translation>Введите значение</translation>
     </message>
