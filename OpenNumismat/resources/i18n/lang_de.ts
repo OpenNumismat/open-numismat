@@ -3571,15 +3571,15 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Unc</source>
-        <translation type="unfinished"/>
+        <translation>pfr</translation>
     </message>
     <message>
         <source>XF</source>
-        <translation type="unfinished"/>
+        <translation>vz</translation>
     </message>
     <message>
         <source>VF</source>
-        <translation type="unfinished"/>
+        <translation>ss</translation>
     </message>
     <message>
         <source>Fine</source>
