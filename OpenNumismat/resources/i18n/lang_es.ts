@@ -3575,6 +3575,22 @@ Por favor, actualiza OpenNumismat</translation>
         <translation>Primera compra: %s</translation>
     </message>
     <message>
+        <source>Unc</source>
+        <translation>SC</translation>
+    </message>
+    <message>
+        <source>XF</source>
+        <translation>EBC</translation>
+    </message>
+    <message>
+        <source>VF</source>
+        <translation>MBC</translation>
+    </message>
+    <message>
+        <source>Fine</source>
+        <translation>BC Fine</translation>
+    </message>
+    <message>
         <source>Estimation owned: %d</source>
         <translation>Estimación en propiedad: %d</translation>
     </message>
