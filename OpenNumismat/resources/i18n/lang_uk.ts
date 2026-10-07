@@ -1512,7 +1512,7 @@ and try again.</source>
     </message>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Теги</translation>
     </message>
     <message>
         <source>This tag has already been added</source>
