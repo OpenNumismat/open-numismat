@@ -1514,6 +1514,14 @@ e tente novamente.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Inserir valor</translation>
     </message>
@@ -2281,6 +2289,14 @@ arraste e largue para adicionar)</translation>
 </context>
 <context>
     <name>ImportSettingsPage</name>
+    <message>
+        <source>Secret</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Language</source>
         <translation>Idioma</translation>
