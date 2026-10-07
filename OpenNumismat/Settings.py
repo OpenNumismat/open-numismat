@@ -149,6 +149,8 @@ class Settings(BaseSettings):
         'finance_service_currency': _getCurrency(),
         'numista_api_key': '',
         'numista_client_id': '',
+        'colnect_api_key': '',
+        'colnect_app_id': '',
     }
 
     def __init__(self, autoSave=False):

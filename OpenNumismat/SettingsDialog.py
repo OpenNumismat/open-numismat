@@ -817,6 +817,14 @@ class ImportSettingsPage(QWidget):
         fLayout = QFormLayout()
         fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
+        self.colnect_api_key = QLineEdit(self)
+        self.colnect_api_key.setMinimumWidth(40)
+        self.colnect_api_key.setText(settings['colnect_api_key'])
+        fLayout.addRow(self.tr("Secret"), self.colnect_api_key)
+        self.colnect_app_id = QLineEdit(self)
+        self.colnect_app_id.setText(settings['colnect_app_id'])
+        fLayout.addRow(self.tr("AppID"), self.colnect_app_id)
+
         self.colnect_locale = QComboBox(self)
         for lang in self.Languages:
             self.colnect_locale.addItem(lang[1], lang[0])
@@ -922,6 +930,8 @@ class ImportSettingsPage(QWidget):
 
         settings['colnect_locale'] = self.colnect_locale.currentData()
         settings['colnect_skip_currency'] = self.skip_currency.isChecked()
+        settings['colnect_api_key'] = self.colnect_api_key.text()
+        settings['colnect_app_id'] = self.colnect_app_id.text()
         settings['ans_split_denomination'] = self.ans_split_denomination.isChecked()
         settings['ans_locale_en'] = self.ans_locale_en.isChecked()
         settings['ans_trim_title'] = self.ans_trim_title.isChecked()

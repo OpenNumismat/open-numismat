@@ -1,7 +1,10 @@
 import csv
+import hashlib
+import hmac
 import io
 import json
 import re
+import time
 
 from PySide6.QtCore import Qt, QObject
 from PySide6.QtGui import QImage, QPixmap, QIcon
@@ -47,9 +50,35 @@ class ColnectConnector(QObject):
         super().__init__(parent)
 
         self.http = CachedPoolManager(parent)
-        self.skip_currency = Settings()['colnect_skip_currency']
-        self.lang = Settings()['colnect_locale']
-        self.uuid = Settings()['UUID']
+
+        settings = Settings()
+
+        self.skip_currency = settings['colnect_skip_currency']
+        self.lang = settings['colnect_locale']
+        if settings['colnect_api_key'] and settings['colnect_app_id']:
+            self.use_colnect_proxy = False
+            self.server_url = "https://api.colnect.net"
+            self.app_id = settings['colnect_app_id']
+            self.api_key = settings['colnect_api_key']
+        else:
+            self.use_colnect_proxy = True
+            self.uuid = settings['UUID']
+            self.server_url = COLNECT_PROXY
+            self.app_id = COLNECT_KEY
+
+    def get_headers(self, url):
+        if not self.use_colnect_proxy:
+            url_param = url.removeprefix(self.server_url)
+            timestamp = str(int(time.time()))
+            data = f"{url_param}>|<{timestamp}"
+            data_hash = hmac.new(self.api_key.encode(), data.encode(), hashlib.sha256).hexdigest()
+
+            return {
+                'Capi-Timestamp': timestamp,
+                'Capi-Hash': data_hash,
+            }
+
+        return None
 
     def makeItem(self, category, data, record):
         fields = self.getFields(category)
@@ -170,9 +199,13 @@ class ColnectConnector(QObject):
 
     @waitCursorDecorator
     def getFields(self, category):
-        url = f"{COLNECT_PROXY}/{self.uuid}/en/api/{COLNECT_KEY}/fields/cat/{category}"
+        if self.use_colnect_proxy:
+            url = f"{self.server_url}/{self.uuid}/en/api/{self.app_id}/fields/cat/{category}"
+        else:
+            url = f"{self.server_url}/en/api/{self.app_id}/fields/cat/{category}"
+        headers = self.get_headers(url)
 
-        response_data = self.http.get(url)
+        response_data = self.http.get(url, headers=headers)
         if not response_data:
             return []
 
@@ -215,9 +248,12 @@ class ColnectConnector(QObject):
         return name
 
     def _baseUrl(self, lang=None):
-        if lang is None:
-            lang = self.lang
-        url = f"{COLNECT_PROXY}/{self.uuid}/{lang}/api/{COLNECT_KEY}/"
+        if self.use_colnect_proxy:
+            if lang is None:
+                lang = self.lang
+            url = f"{self.server_url}/{self.uuid}/{lang}/api/{self.app_id}/"
+        else:
+            url = f"{self.server_url}/{self.lang}/api/{self.app_id}/"
         return url
 
     def _makeQuery(self, category, country=None, series=None,
@@ -251,8 +287,9 @@ class ColnectConnector(QObject):
     @waitCursorDecorator
     def getData(self, action, lang=None):
         url = self._baseUrl(lang) + action
+        headers = self.get_headers(url)
 
-        response_data = self.http.get(url)
+        response_data = self.http.get(url, headers=headers)
         if not response_data:
             return []
 
@@ -849,6 +886,9 @@ class ImportColnect(_Import2):
 
     @staticmethod
     def isAvailable():
+        settings = Settings()
+        if settings['colnect_api_key'] and settings['colnect_app_id']:
+            return True
         return colnectAvailable
 
     def _connect(self, src):

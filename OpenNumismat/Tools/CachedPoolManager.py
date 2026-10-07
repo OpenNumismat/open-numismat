@@ -24,6 +24,8 @@ SITES_CATALOG = {
     "en.numista.com": "Numista",
     "nominatim.openstreetmap.org": "OpenStreetMap Nominatim",
     "static.coinidentifierai.com": "CoinSnap",
+    "api.colnect.net": "Colnect",
+    "i.colnect.net": "Colnect",
 }
 
 
