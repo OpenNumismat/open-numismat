@@ -331,9 +331,9 @@ class EditTagsTreeWidget(QTreeWidget):
         if current_item:
             active_editor = self.viewport().findChild(QLineEdit)
             if active_editor:
-                if not self.applyData(active_editor):
+                self.commitData(active_editor)
+                if not self.closeEditor(active_editor, QAbstractItemDelegate.SubmitModelCache):
                     return
-                self.closeEditor(active_editor, QAbstractItemDelegate.NoHint)
 
         item = QTreeWidgetItem((self.defaultValue(),))
         parent_item = None
@@ -473,59 +473,69 @@ class EditTagsTreeWidget(QTreeWidget):
         execute_query(query, sql, params)
 
     def commitData(self, editor):
-        self.applyData(editor)
-
-        super().commitData(editor)
-
-    def applyData(self, editor):
         text = editor.text().strip()
-        item = self.currentItem()
-        tag_id = item.data(0, Qt.UserRole)
-
-        if not text or text == self.defaultValue():
-            if not tag_id:
-                self.removeItem(item)
-            return False
-
-        position = item.data(0, Qt.UserRole + 1) or 1
-        parent_item = item.parent()
-        parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
-
-        query = QSqlQuery(self.db)
-
-        sql = "SELECT 1 FROM tags WHERE tag=? AND parent_id IS ? AND id IS NOT ?"
-        params = (text, parent_id, tag_id)
-        execute_query(query, sql, params)
-        if query.first():
-#            QMessageBox.warning(self, self.tr("Tags"),
-#                                self.tr("This tag has already been added"))
-            QTimer.singleShot(0, lambda: self.editItem(item))
-            return False
-
-        sql = "INSERT OR REPLACE INTO tags (id, tag, position, parent_id) VALUES (?, ?, ?, ?)"
-        params = (tag_id, text, position, parent_id)
-        execute_query(query, sql, params)
-
-        tag_id = query.lastInsertId()
-        item.setData(0, Qt.UserRole, tag_id)
-        item.setText(0, text)
-
-        if self.sorted:
-            self.sortItems(0, Qt.SortOrder.AscendingOrder)
-
-            self.scrollToItem(item)
-
-        return True
+        if len(text) > 0:
+            super().commitData(editor)
 
     def closeEditor(self, editor, hint):
+        index = self.indexAt(editor.pos())
+        item = self.itemFromIndex(index)
+        tag_id = item.data(0, Qt.UserRole)
+
         if hint == QAbstractItemDelegate.RevertModelCache:
-            item = self.currentItem()
-            tag_id = item.data(0, Qt.UserRole)
+            super().closeEditor(editor, hint)
 
-            if not tag_id:
+            if tag_id:
+                query = QSqlQuery(self.db)
+                sql = "SELECT tag FROM tags WHERE id=?"
+                params = (tag_id,)
+                execute_query(query, sql, params)
+                if query.first():
+                    text = query.value(0)
+                    item.setText(0, text)
+            else:
                 self.removeItem(item)
+            return False
+        else:
+            super().closeEditor(editor, hint)
 
-        super().closeEditor(editor, hint)
+            text = editor.text().strip()
+
+            if not text or text == self.defaultValue():
+                if not tag_id:
+                    self.removeItem(item)
+                return True
+
+            position = item.data(0, Qt.UserRole + 1) or 1
+            parent_item = item.parent()
+            parent_id = parent_item.data(0, Qt.UserRole) if parent_item else None
+
+            query = QSqlQuery(self.db)
+
+            sql = "SELECT 1 FROM tags WHERE tag=? AND parent_id IS ? AND id IS NOT ?"
+            params = (text, parent_id, tag_id)
+            execute_query(query, sql, params)
+            if query.first():
+                if hint == QAbstractItemDelegate.SubmitModelCache:
+                    QMessageBox.warning(self, self.tr("Tags"),
+                                    self.tr("This tag has already been added"))
+                self.editItem(item)
+                self.setCurrentItem(item)
+                return False
+
+            sql = "INSERT OR REPLACE INTO tags (id, tag, position, parent_id) VALUES (?, ?, ?, ?)"
+            params = (tag_id, text, position, parent_id)
+            execute_query(query, sql, params)
+
+            tag_id = query.lastInsertId()
+            item.setData(0, Qt.UserRole, tag_id)
+
+            if self.sorted:
+                self.sortItems(0, Qt.SortOrder.AscendingOrder)
+
+                self.scrollToItem(item)
+
+        return True
 
     def removeItem(self, item):
         parent_item = item.parent()
