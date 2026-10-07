@@ -1514,6 +1514,14 @@ and try again.</source>
         <translation>Изтриване</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Въведете стойност</translation>
     </message>
@@ -2281,6 +2289,14 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>ImportSettingsPage</name>
+    <message>
+        <source>Secret</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Language</source>
         <translation>Език</translation>
