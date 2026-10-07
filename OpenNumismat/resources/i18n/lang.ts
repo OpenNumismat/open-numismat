@@ -1945,6 +1945,10 @@ Do you want to send an error message to the author?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Camera (libgphoto2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2497,6 +2501,10 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Use webcam</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use camera</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

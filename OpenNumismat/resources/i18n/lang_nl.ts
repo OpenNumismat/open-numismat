@@ -2019,6 +2019,14 @@ Wilt u een foutmelding te sturen naar de author?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Camera</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Camera (libgphoto2)</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="187"/>
         <source>Exchange with</source>
         <translation type="unfinished"/>
@@ -2452,6 +2460,10 @@ Wilt u een foutmelding te sturen naar de author?</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Camera gebruiken</translation>
+    </message>
     <message>
         <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>

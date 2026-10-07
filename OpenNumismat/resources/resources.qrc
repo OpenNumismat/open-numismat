@@ -75,6 +75,7 @@
     <file alias="replacement.png">../../icons/replacement.png</file>
     <file alias="barcode.png">../../icons/barcode.png</file>
     <file alias="webcam.png">../../icons/webcam.png</file>
+    <file alias="camera.png">../ImageEditor/src/icons/camera.png</file>
     <file alias="ngc.png">../../icons/ngc.png</file>
     <file alias="pcgs.png">../../icons/pcgs.png</file>
     <file alias="coinsnap.png">../../icons/coinsnap.png</file>

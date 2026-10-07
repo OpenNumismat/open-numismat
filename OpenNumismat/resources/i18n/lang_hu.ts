@@ -2018,6 +2018,14 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Kamera</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Kamera (libgphoto2)</translation>
+    </message>
+    <message>
         <location filename="ImageLabel.py" line="187"/>
         <source>Exchange with</source>
         <translation type="unfinished"/>
@@ -2451,6 +2459,10 @@ El szeretnéd küldeni a hibát a fejlesztőnek?</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Kamera használata</translation>
+    </message>
     <message>
         <location filename="SettingsDialog.py" line="50"/>
         <source>Language</source>
