@@ -1513,6 +1513,14 @@ y prueba de nuevo.</translation>
         <translation>Eliminar</translation>
     </message>
     <message>
+        <source>Tags</source>
+        <translation>Etiquetas</translation>
+    </message>
+    <message>
+        <source>This tag has already been added</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Enter value</source>
         <translation>Introduce valor</translation>
     </message>
@@ -2280,6 +2288,14 @@ arrastrar y soltar para añadir una imagen)</translation>
 </context>
 <context>
     <name>ImportSettingsPage</name>
+    <message>
+        <source>Secret</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Language</source>
         <translation>Idioma</translation>
