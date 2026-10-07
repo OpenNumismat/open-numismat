@@ -1509,7 +1509,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Markierungen</translation>
     </message>
     <message>
         <source>This tag has already been added</source>
