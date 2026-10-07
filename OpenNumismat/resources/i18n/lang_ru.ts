@@ -1515,11 +1515,11 @@ and try again.</source>
     </message>
     <message>
         <source>Tags</source>
-        <translation type="unfinished"/>
+        <translation>Метки</translation>
     </message>
     <message>
         <source>This tag has already been added</source>
-        <translation type="unfinished"/>
+        <translation>Этот тег уже добавлен</translation>
     </message>
     <message>
         <source>Enter value</source>
