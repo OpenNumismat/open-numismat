@@ -2268,10 +2268,6 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportExcel</name>
     <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;Ignore&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3773,6 +3769,10 @@ Add a new one first.</source>
     <name>TableDialog</name>
     <message>
         <source>Select columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
