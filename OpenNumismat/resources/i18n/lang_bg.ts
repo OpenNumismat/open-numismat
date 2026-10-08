@@ -2283,10 +2283,6 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportExcel</name>
     <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
     </message>
@@ -3796,6 +3792,10 @@ Add a new one first.</source>
     <message>
         <source>Select columns</source>
         <translation>Избор на колони</translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
