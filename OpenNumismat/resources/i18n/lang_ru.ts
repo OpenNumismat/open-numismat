@@ -2291,11 +2291,11 @@ drag-n-drop to add an image)</source>
     <name>ImportSettingsPage</name>
     <message>
         <source>Secret</source>
-        <translation type="unfinished"/>
+        <translation>Secret</translation>
     </message>
     <message>
         <source>AppID</source>
-        <translation type="unfinished"/>
+        <translation>AppID</translation>
     </message>
     <message>
         <source>Language</source>
