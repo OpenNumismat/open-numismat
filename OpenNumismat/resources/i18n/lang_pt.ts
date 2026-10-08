@@ -2294,6 +2294,14 @@ arraste e largue para adicionar)</translation>
 <context>
     <name>ImportSettingsPage</name>
     <message>
+        <source>Secret</source>
+        <translation>Secreto</translation>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation>IDApl</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
@@ -3788,6 +3796,10 @@ Adicione uma nova primeiro.</translation>
     <message>
         <source>Select columns</source>
         <translation>Seleccionar colunas</translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation>A primeira linha é de cabeçalhos</translation>
     </message>
 </context>
 <context>

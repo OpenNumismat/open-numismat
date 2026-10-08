@@ -2294,6 +2294,14 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
+        <source>Secret</source>
+        <translation>Secret</translation>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation>AppID</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
@@ -3788,6 +3796,10 @@ Add a new one first.</source>
     <message>
         <source>Select columns</source>
         <translation>Выбрать столбцы</translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation>Первая строка - заголовок (названия колонок)</translation>
     </message>
 </context>
 <context>

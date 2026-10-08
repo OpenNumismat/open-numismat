@@ -2287,6 +2287,14 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
+        <source>Secret</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Språk</translation>
     </message>
@@ -3779,6 +3787,10 @@ Lägg till en ny först.</translation>
     <message>
         <source>Select columns</source>
         <translation>Välj kolumner</translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

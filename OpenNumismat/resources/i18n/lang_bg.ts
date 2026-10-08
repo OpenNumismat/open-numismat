@@ -684,7 +684,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Fine</source>
-        <translation>Fine</translation>
+        <translation>F</translation>
     </message>
     <message>
         <source>VF</source>
@@ -2294,6 +2294,14 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
+        <source>Secret</source>
+        <translation>Secret</translation>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation>AppID</translation>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Език</translation>
     </message>
@@ -3593,7 +3601,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Fine</source>
-        <translation>отлично F</translation>
+        <translation>F</translation>
     </message>
     <message>
         <source>Estimation owned: %d</source>
@@ -3788,6 +3796,10 @@ Add a new one first.</source>
     <message>
         <source>Select columns</source>
         <translation>Избор на колони</translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation>Първият ред е заглавка (имената на колоните)</translation>
     </message>
 </context>
 <context>

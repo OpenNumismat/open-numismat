@@ -2293,6 +2293,14 @@ arrastrar y soltar para añadir una imagen)</translation>
 <context>
     <name>ImportSettingsPage</name>
     <message>
+        <source>Secret</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>AppID</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
@@ -3787,6 +3795,10 @@ Añade una nueva primero.</translation>
     <message>
         <source>Select columns</source>
         <translation>Seleccionar columnas</translation>
+    </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
