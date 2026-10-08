@@ -2291,11 +2291,11 @@ arraste e largue para adicionar)</translation>
     <name>ImportSettingsPage</name>
     <message>
         <source>Secret</source>
-        <translation type="unfinished"/>
+        <translation>Secreto</translation>
     </message>
     <message>
         <source>AppID</source>
-        <translation type="unfinished"/>
+        <translation>IDApl</translation>
     </message>
     <message>
         <source>Language</source>
