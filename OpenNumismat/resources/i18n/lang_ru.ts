@@ -3795,7 +3795,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
+        <translation>Первая строка - заголовок (названия колонок)</translation>
     </message>
 </context>
 <context>
