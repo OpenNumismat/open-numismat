@@ -3793,6 +3793,10 @@ Adicione uma nova primeiro.</translation>
         <source>Select columns</source>
         <translation>Seleccionar colunas</translation>
     </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TagsDialog</name>
