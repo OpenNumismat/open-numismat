@@ -3795,7 +3795,7 @@ Adicione uma nova primeiro.</translation>
     </message>
     <message>
         <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
+        <translation>A primeira linha é de cabeçalhos</translation>
     </message>
 </context>
 <context>
