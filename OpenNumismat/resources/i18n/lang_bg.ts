@@ -3795,7 +3795,7 @@ Add a new one first.</source>
     </message>
     <message>
         <source>First row is header (column names)</source>
-        <translation>Първият ред съдържа имената на колоните</translation>
+        <translation>Първият ред е заглавка (имената на колоните)</translation>
     </message>
 </context>
 <context>
