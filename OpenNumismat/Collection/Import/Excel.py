@@ -245,6 +245,11 @@ class ImportExcel(_Import2):
                     combo.addItem(f.title, f)
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             combo.setStyleSheet("QComboBox { font-weight: 700; }")
+            popup = combo.view()
+            popup.setMinimumWidth(
+                popup.sizeHintForColumn(0)
+                + 2 * popup.frameWidth()
+                + popup.verticalScrollBar().sizeHint().width())
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.table.setCellWidget(0, col, combo)
 
