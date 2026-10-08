@@ -2268,6 +2268,10 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportExcel</name>
     <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;Ignore&gt;</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2291,6 +2291,10 @@ Voleu enviar un missatge a l&apos;autor?</translation>
 <context>
     <name>ImportExcel</name>
     <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="Excel.py" line="152"/>
         <source>&lt;Ignore&gt;</source>
         <translation type="unfinished"/>
