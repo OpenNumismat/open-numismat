@@ -3787,6 +3787,10 @@ Fügen Sie erst eine Neue ein.</translation>
         <source>Select columns</source>
         <translation>Spalten auswählen</translation>
     </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TagsDialog</name>
