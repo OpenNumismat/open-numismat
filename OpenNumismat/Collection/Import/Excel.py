@@ -5,7 +5,7 @@ import os
 
 from dateutil import parser
 
-from PySide6.QtCore import Qt, QSize
+from PySide6.QtCore import Qt, QSize, QEvent, QSortFilterProxyModel
 from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QDialogButtonBox, QComboBox, QCheckBox
 from PySide6.QtGui import QPixmap, QImage, QPainter
 
@@ -19,6 +19,128 @@ IMAGE_CONNECTION_TIMEOUT = 30
 IMAGE_PREVIEW_SIZE = 64
 IMAGE_SOURCE_ROLE = Qt.UserRole + 1
 IMAGE_PREVIEW_ROLE = Qt.UserRole + 2
+
+
+class FilterComboBox(QComboBox):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._filter_query = ''
+        self._filtering = False
+        self._selected_row = 0
+        self._source_model = None
+        self._filter_model = None
+
+    def enableFilter(self):
+        self._source_model = self.model()
+        self._filter_model = QSortFilterProxyModel(self)
+        self._filter_model.setSourceModel(self._source_model)
+        self._source_model.setParent(self._filter_model)
+        self._filter_model.setFilterKeyColumn(0)
+        self._filter_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.setModel(self._filter_model)
+        self.view().installEventFilter(self)
+        self.view().viewport().installEventFilter(self)
+        if self.lineEdit() is not None:
+            self.lineEdit().installEventFilter(self)
+        self.currentIndexChanged.connect(self._rememberSelection)
+
+    def _rememberSelection(self, index):
+        if not self._filtering and index >= 0:
+            source_index = self._filter_model.mapToSource(
+                self._filter_model.index(index, 0))
+            self._selected_row = source_index.row()
+
+    def rememberCurrentSelection(self):
+        self._rememberSelection(self.currentIndex())
+
+    def selectedData(self):
+        if self._source_model is None:
+            return self.currentData()
+        return self._source_model.index(
+            self._selected_row, 0).data(Qt.UserRole)
+
+    def _applyFilter(self, query):
+        self._filter_query = query
+        self._filtering = True
+        self._filter_model.setFilterFixedString(query)
+        source_index = self._source_model.index(self._selected_row, 0)
+        proxy_index = self._filter_model.mapFromSource(source_index)
+        self.setCurrentIndex(proxy_index.row() if proxy_index.isValid() else -1)
+        if proxy_index.isValid():
+            self.view().setCurrentIndex(proxy_index)
+        else:
+            self.view().selectionModel().clearCurrentIndex()
+        self._filtering = False
+
+    def showPopup(self):
+        self._applyFilter('')
+        super().showPopup()
+
+    def hidePopup(self):
+        super().hidePopup()
+        if self._filter_query:
+            self._applyFilter('')
+
+    def _moveHighlight(self, key):
+        if not self.count():
+            return
+        step = 1 if key == Qt.Key_Down else -1
+        row = self.view().currentIndex().row()
+        if row < 0:
+            row = self.currentIndex()
+        if row < 0:
+            row = 0 if step > 0 else self.count() - 1
+        else:
+            row = max(0, min(self.count() - 1, row + step))
+
+        index = self._filter_model.index(row, 0)
+        self.view().setCurrentIndex(index)
+        self.view().scrollTo(index)
+        self.setCurrentIndex(row)
+
+    def eventFilter(self, watched, event):
+        if event.type() != QEvent.KeyPress:
+            return super().eventFilter(watched, event)
+
+        key = event.key()
+        if watched is self.lineEdit() and key in (Qt.Key_Return, Qt.Key_Enter):
+            if not self.view().isVisible():
+                self.showPopup()
+                return True
+
+        if watched not in (self.view(), self.view().viewport()):
+            return super().eventFilter(watched, event)
+
+        if key in (Qt.Key_Up, Qt.Key_Down):
+            self._moveHighlight(key)
+            return True
+        if key == Qt.Key_Escape and self._filter_query:
+            self._applyFilter('')
+            return True
+        if key == Qt.Key_Backspace and self._filter_query:
+            self._applyFilter(self._filter_query[:-1])
+            return True
+
+        text = event.text()
+        if (text and text.isprintable() and not (event.modifiers() &
+                                                 (Qt.ControlModifier | Qt.AltModifier))):
+            self._applyFilter(self._filter_query + text)
+            return True
+        return super().eventFilter(watched, event)
+
+    def keyPressEvent(self, event):
+        if (event.key() in (Qt.Key_Return, Qt.Key_Enter) and
+                not self.view().isVisible()):
+            self.showPopup()
+            event.accept()
+            return
+        if (self.view().isVisible() and
+                event.key() in (Qt.Key_Up, Qt.Key_Down)):
+            self._moveHighlight(event.key())
+            event.accept()
+            return
+        super().keyPressEvent(event)
 
 
 @storeDlgSizeDecorator
@@ -57,7 +179,7 @@ class TableDialog(QDialog):
         for col in range(self.table.columnCount()):
             combo = self.table.cellWidget(0, col)
             if combo is not None:
-                self._updateColumnPreview(col, combo.currentData())
+                self._updateColumnPreview(col, combo.selectedData())
 
     def _resetRowHeights(self):
         for row in range(1, self.table.rowCount()):
@@ -234,7 +356,7 @@ class ImportExcel(_Import2):
 
         self.comboBoxes = []
         for col in range(self.sheet_max_column):
-            combo = QComboBox()
+            combo = FilterComboBox()
             combo.setEditable(True)
             combo.setInsertPolicy(QComboBox.NoInsert)
             combo.lineEdit().setReadOnly(True)
@@ -243,8 +365,10 @@ class ImportExcel(_Import2):
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
+            combo.enableFilter()
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             combo.setStyleSheet("QComboBox { font-weight: 700; }")
+            combo.setToolTip(self.tr("Type to filter fields; press Esc to show all fields"))
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.table.setCellWidget(0, col, combo)
 
@@ -262,7 +386,7 @@ class ImportExcel(_Import2):
             self.has_status = False
             for i in range(dialog.table.columnCount()):
                 combo = dialog.table.cellWidget(0, i)
-                field = combo.currentData() if combo is not None else None
+                field = combo.selectedData() if combo is not None else None
                 self.selected_fields.append(field)
 
                 if field:
@@ -348,6 +472,7 @@ class ImportExcel(_Import2):
             combo.blockSignals(True)
             combo.setCurrentIndex(self.defaultField(col, combo, has_header))
             combo.blockSignals(False)
+            combo.rememberCurrentSelection()
 
     def _getRowsCount(self, book):
         if self.has_header:
