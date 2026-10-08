@@ -3785,6 +3785,10 @@ Aggiungi una nuova pagina prima.</translation>
         <source>Select columns</source>
         <translation>Seleziona colonne</translation>
     </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TagsDialog</name>
