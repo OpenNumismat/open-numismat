@@ -3786,6 +3786,10 @@ Add a new one first.</source>
         <source>Select columns</source>
         <translation>Вибрати стовпчики</translation>
     </message>
+    <message>
+        <source>First row is header (column names)</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>TagsDialog</name>
