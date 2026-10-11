@@ -423,7 +423,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Attaching reference</source>
-        <translation>Прикачване на номенклатура</translation>
+        <translation>Прикачване на номенклатурата</translation>
     </message>
     <message>
         <source>Can't attach reference:
