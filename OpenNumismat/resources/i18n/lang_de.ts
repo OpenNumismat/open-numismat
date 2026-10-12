@@ -1323,7 +1323,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
-        <translation type="unfinished"/>
+        <translation>ARS - Argentinischer Peso</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
