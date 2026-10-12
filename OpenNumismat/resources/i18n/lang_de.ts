@@ -1514,7 +1514,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>This tag has already been added</source>
-        <translation type="unfinished"/>
+        <translation>Dieser Tag wurde bereits hinzugefügt</translation>
     </message>
     <message>
         <source>Enter value</source>
