@@ -1359,11 +1359,11 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation type="unfinished"/>
+        <translation>INR - Indische Rupie</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation type="unfinished"/>
+        <translation>NOK - Norwegische Krone</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
