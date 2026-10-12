@@ -2290,7 +2290,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>AppID</source>
-        <translation type="unfinished"/>
+        <translation>AppID</translation>
     </message>
     <message>
         <source>Language</source>
@@ -2318,7 +2318,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Client ID</source>
-        <translation type="unfinished"/>
+        <translation>Client ID</translation>
     </message>
     <message>
         <source>Price currency</source>
