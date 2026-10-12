@@ -1327,7 +1327,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
-        <translation type="unfinished"/>
+        <translation>AUD - Australischer Dollar</translation>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
