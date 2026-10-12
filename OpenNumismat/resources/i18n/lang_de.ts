@@ -196,7 +196,7 @@
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
-        <translation type="unfinished"/>
+        <translation>Soll ein neuer leerer Eintrag erstellt werden oder soll der aktuelle Eintrag dupliziert werden?</translation>
     </message>
     <message>
         <source>Clone</source>
@@ -2276,10 +2276,6 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>ImportExcel</name>
-    <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
-    </message>
     <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
