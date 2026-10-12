@@ -516,7 +516,8 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     <message>
         <source>Export to %s completed
 Images saved to %s</source>
-        <translation type="unfinished"/>
+        <translation>Der Export nach %s ist vollständig
+Bilder wurden in %s gespeichert</translation>
     </message>
     <message>
         <source>File is open in another program or permission required.
@@ -918,7 +919,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Währung</translation>
     </message>
 </context>
 <context>
@@ -1577,7 +1578,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Währung</translation>
     </message>
     <message>
         <source>Total price</source>
