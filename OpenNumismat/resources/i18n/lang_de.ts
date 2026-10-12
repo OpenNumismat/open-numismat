@@ -1586,7 +1586,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Shipping</source>
-        <translation type="unfinished"/>
+        <translation>Versandkosten</translation>
     </message>
     <message>
         <source>Grade</source>
