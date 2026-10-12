@@ -1339,7 +1339,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation type="unfinished"/>
+        <translation>CHF - Schweizer Franken</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
