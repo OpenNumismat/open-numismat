@@ -2915,8 +2915,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Report saved as %s</source>
-        <translation>Bericht wurde unter
-%s gespeichert</translation>
+        <translation>Bericht wurde unter %s gespeichert</translation>
     </message>
     <message>
         <source>Report saving failed</source>
