@@ -270,7 +270,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Der Export nach %s ist vollständig</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -511,7 +511,7 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Der Export nach %s ist vollständig</translation>
     </message>
     <message>
         <source>Export to %s completed
