@@ -290,7 +290,7 @@ class BaseReferenceSection(QObject):
         self.setSort()
 
     def create(self, db=QSqlDatabase()):
-        with DBTransaction(self.db):
+        with DBTransaction(db):
             query = QSqlQuery(db)
 
             cross_ref = ('country', 'period', 'emitent', 'ruler',
