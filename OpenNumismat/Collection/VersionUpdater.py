@@ -1,6 +1,6 @@
 from PySide6.QtCore import QSettings, QObject
 from PySide6.QtSql import QSqlQuery
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMessageBox
 
 from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
 from OpenNumismat.Tools import Gui
@@ -841,7 +841,11 @@ class UpdaterTo11(_Updater):
         self.collection.settings['Version'] = 11
         self.collection.settings.save()
 
-        self.db.commit()
+        if not self.db.commit():
+            QMessageBox.critical(self.collection.parent(), self.tr("Updating"),
+                    self.tr("Something went wrong when updating. Please restart\n\n%s") %
+                        self.db.lastError().text())
+            self.db.rollback()
 
         self._finish()
 
