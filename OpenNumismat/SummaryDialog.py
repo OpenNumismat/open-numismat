@@ -41,28 +41,39 @@ class SummaryDialog(QDialog):
 
         self.setLayout(layout)
 
-        lines_all = self.fillSummary(model)
-        lines_selected = self.fillSummary(model, model.filter())
+        self.model = model
+
+        lines_all = self.fillSummary()
+        lines_selected = self.fillSummary(model.filter())
 
         lines = [self.tr("[Selected]")] + lines_selected + ["", self.tr("[All]")] + lines_all
         self.textBox.setText('\n'.join(lines))
 
-    def makeSql(self, sql, filter_):
-        if filter_:
-            if 'WHERE' in sql:
-                sql = f"{sql} AND {filter_}"
-            else:
-                sql = f"{sql} WHERE {filter_}"
+    def makeSql(self, select_clause, global_filter, local_filter=None):
+        filters = []
 
-        return sql
+        if local_filter:
+            filters.append(local_filter)
 
-    def fillSummary(self, model, filter_=None):
+        if global_filter:
+            filters.append(global_filter)
+
+        if not filters:
+            return (f"SELECT {select_clause} FROM coins"
+                f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES}")
+
+        where_clause = " AND ".join(filters)
+
+        return (f"SELECT {select_clause} FROM coins"
+                f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES}"
+                f" WHERE {where_clause}")
+
+    def fillSummary(self, filter_=None):
         lines = []
 
-        query = QSqlQuery(model.database())
+        query = QSqlQuery(self.model.database())
 
-        sql = "SELECT count(*) FROM coins"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("count(*)", filter_)
         execute_query(query, sql)
         if query.first():
             totalCount = query.record().value(0)
@@ -70,8 +81,8 @@ class SummaryDialog(QDialog):
 
         count_owned = 0
         quantity_owned = 0
-        sql = "SELECT quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("coins.quantity", filter_,
+                           "status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')")
         execute_query(query, sql)
         while query.next():
             try:
@@ -85,54 +96,50 @@ class SummaryDialog(QDialog):
         else:
             lines.append(self.tr("Count owned: %d/%d") % (quantity_owned, count_owned))
 
-        material_lines = self.fillMaterial('gold', model, filter_)
+        material_lines = self.fillMaterial('gold', filter_)
         lines.extend(material_lines)
-        material_lines = self.fillMaterial('silver', model, filter_)
+        material_lines = self.fillMaterial('silver', filter_)
         lines.extend(material_lines)
-        material_lines = self.fillMaterial('platinum', model, filter_)
+        material_lines = self.fillMaterial('platinum', filter_)
         lines.extend(material_lines)
-        material_lines = self.fillMaterial('palladium', model, filter_)
+        material_lines = self.fillMaterial('palladium', filter_)
         lines.extend(material_lines)
 
-        sql = "SELECT count(*) FROM coins WHERE status='wish'"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("count(*)", filter_, "status='wish'")
         execute_query(query, sql)
         if query.first():
             count = query.record().value(0)
             lines.append(self.tr("Count wish: %d") % count)
 
         count_sold = 0
-        sql = "SELECT count(*) FROM coins WHERE status='sold'"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("count(*)", filter_, "status='sold'")
         execute_query(query, sql)
         if query.first():
             count_sold = query.record().value(0)
             if count_sold > 0:
                 lines.append(self.tr("Count sales: %d") % count_sold)
 
-        sql = "SELECT count(*) FROM coins WHERE status='bidding'"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("count(*)", filter_, "status='bidding'")
         execute_query(query, sql)
         if query.first():
             count = query.record().value(0)
             if count > 0:
                 lines.append(self.tr("Count biddings: %d") % count)
 
-        sql = "SELECT count(*) FROM coins WHERE status='missing'"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("count(*)", filter_, "status='missing'")
         execute_query(query, sql)
         if query.first():
             count = query.record().value(0)
             if count > 0:
                 lines.append(self.tr("Count missing: %d") % count)
 
-        paid = self._get_purchase_net(model, filter_)
+        paid = self._get_purchase_net(filter_)
         if paid:
             paid_str = self.locale.toString(float(paid), 'f', precision=2)
             line = self.tr('Paid: %s') % paid_str
 
             commission = ""
-            paid_gross = self._get_purchase_gross(model, filter_)
+            paid_gross = self._get_purchase_gross(filter_)
             if paid_gross:
                 commission_percent = (paid - paid_gross) / paid_gross * 100
                 commission = self.tr('(commission %d%%)') % commission_percent
@@ -145,13 +152,13 @@ class SummaryDialog(QDialog):
                 val_str = self.locale.toString(float(val), 'f', precision=2)
                 lines.append(self.tr("Average paid per item: %s") % val_str)
 
-        earned = self._get_sales_net(model, filter_)
+        earned = self._get_sales_net(filter_)
         if earned:
             earned_str = self.locale.toString(float(earned), 'f', precision=2)
             line = self.tr("Earned: %s") % earned_str
 
             commission = ""
-            earn_gross = self._get_sales_gross(model, filter_)
+            earn_gross = self._get_sales_gross(filter_)
             if earn_gross:
                 commission_percent = (earn_gross - earned) / earn_gross * 100
                 commission = self.tr("(commission %d%%)") % commission_percent
@@ -169,11 +176,9 @@ class SummaryDialog(QDialog):
             total_str = self.locale.toString(float(total), 'f', precision=2)
             lines.append(self.tr("Total (paid - earned): %s") % total_str)
 
-        sql = ("SELECT buy_prices.date FROM coins"
-               f" {model.JOIN_BUY_PRICES}"
-               " WHERE status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
-               " AND COALESCE(buy_prices.date, '') <> ''")
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("buy_prices.date", filter_,
+                           ("status IN ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')"
+                            " AND COALESCE(buy_prices.date, '') <> ''"))
         sql = f"{sql} ORDER BY buy_prices.date LIMIT 1"
         execute_query(query, sql)
         if query.first():
@@ -181,8 +186,9 @@ class SummaryDialog(QDialog):
             paydate = self.locale.toString(date, QLocale.ShortFormat)
             lines.append(self.tr("First purchase: %s") % paydate)
 
-        sql = "SELECT UPPER(grade), price1, price2, price3, price4, quantity FROM coins WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("UPPER(coins.grade), price1, price2, price3, price4, coins.quantity",
+                           filter_,
+                           "status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement') AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')")
         execute_query(query, sql)
         est_owned = 0
         count = 0
@@ -234,8 +240,8 @@ class SummaryDialog(QDialog):
 
         lines.append(' '.join((self.tr("Estimation owned: %d") % est_owned, comment)))
 
-        sql = "SELECT price1, price2, price3, price4 FROM coins WHERE status='wish' AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')"
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("price1, price2, price3, price4", filter_,
+                           "status='wish' AND (ifnull(price1,'')<>'' OR ifnull(price2,'')<>'' OR ifnull(price3,'')<>'' OR ifnull(price4,'')<>'')")
         execute_query(query, sql)
         est_wish = 0
         count = 0
@@ -264,8 +270,10 @@ class SummaryDialog(QDialog):
         sql = "SELECT count(*) FROM photos"
         if filter_:
             fields = [f"coins.{field}" for field in ImageFields]
-            sql = f"{sql} JOIN coins ON photos.id IN ({','.join(fields)})"
-        sql = self.makeSql(sql, filter_)
+            sql = (f"{sql}"
+                   f" JOIN coins ON photos.id IN ({','.join(fields)})"
+                   f" {self.model.JOIN_BUY_PRICES} {self.model.JOIN_SELL_PRICES}"
+                   f" WHERE {filter_}")
         execute_query(query, sql)
         if query.first():
             count = query.record().value(0)
@@ -274,7 +282,7 @@ class SummaryDialog(QDialog):
         return lines
 
     @waitCursorDecorator
-    def fillMaterial(self, material, model, filter_):
+    def fillMaterial(self, material, filter_):
         lines = []
 
         materials = {
@@ -298,7 +306,7 @@ class SummaryDialog(QDialog):
         }
 
         material_count, material_quantity = self.materialCount(
-                materials[material], model, filter_)
+                materials[material], filter_)
         if material_count:
             if material_count == material_quantity:
                 lines.append(f"{titles[material][0]}: {material_count}")
@@ -306,7 +314,7 @@ class SummaryDialog(QDialog):
                 lines.append(f"{titles[material][0]}: {material_quantity}/{material_count}")
 
             weight, weight_count, weight_quantity = self.materialWeight(
-                materials[material], model, filter_)
+                materials[material], filter_)
             if weight:
                 if weight_count == weight_quantity:
                     comment = self.tr("calculated for %d coins") % weight_quantity
@@ -341,15 +349,14 @@ class SummaryDialog(QDialog):
 
         return 'material IN (%s)' % ','.join(filters)
 
-    def materialCount(self, materials, model, filter_):
-        query = QSqlQuery(model.database())
+    def materialCount(self, materials, filter_):
+        query = QSqlQuery(self.model.database())
         material_count = 0
         material_quantity = 0
         material_filter = self.materialFilter(*materials)
-        sql = ("SELECT quantity FROM coins"
-               " WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
-               f" AND {material_filter}")
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("coins.quantity", filter_,
+                           ("status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
+                            f" AND {material_filter}"))
         execute_query(query, sql)
         while query.next():
             record = query.record()
@@ -359,17 +366,16 @@ class SummaryDialog(QDialog):
 
         return material_count, material_quantity
 
-    def materialWeight(self, materials, model, filter_):
-        query = QSqlQuery(model.database())
+    def materialWeight(self, materials, filter_):
+        query = QSqlQuery(self.model.database())
         material_weight = 0
         material_count = 0
         material_quantity = 0
         material_filter = self.materialFilter(*materials)
-        sql = ("SELECT fineness, weight, quantity FROM coins"
-               " WHERE status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
-               f" AND {material_filter}"
-               " AND ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''")
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("fineness, weight, coins.quantity", filter_,
+                           ("status IN ('owned', 'ordered', 'sale', 'duplicate', 'replacement')"
+                            f" AND {material_filter}"
+                            " AND ifnull(fineness,'')<>'' AND ifnull(weight,'')<>''"))
         execute_query(query, sql)
         while query.next():
             record = query.record()
@@ -385,66 +391,42 @@ class SummaryDialog(QDialog):
 
         return material_weight, material_count, material_quantity
 
-    def _get_purchase_net(self, model, filter_):
-        query = QSqlQuery(model.database())
-
+    def _get_purchase_net(self, filter_):
+        query = QSqlQuery(self.model.database())
         statuses = ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')
-        sql = f"""
-            SELECT SUM(buy_prices.total_price)
-            FROM coins {model.JOIN_BUY_PRICES}
-            WHERE status IN {statuses}
-                AND COALESCE(buy_prices.total_price, '') <> ''
-        """
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("SUM(buy_prices.total_price)", filter_,
+                           f"status IN {statuses} AND COALESCE(buy_prices.total_price, '') <> ''")
         execute_query(query, sql)
         if query.first():
             return query.value(0) or 0
 
         return 0
 
-    def _get_purchase_gross(self, model, filter_):
-        query = QSqlQuery(model.database())
-
+    def _get_purchase_gross(self, filter_):
+        query = QSqlQuery(self.model.database())
         statuses = ('owned', 'ordered', 'sale', 'sold', 'missing', 'duplicate', 'replacement')
-        sql = f"""
-            SELECT SUM(buy_prices.price)
-            FROM coins {model.JOIN_BUY_PRICES}
-            WHERE status IN {statuses}
-                AND COALESCE(buy_prices.price, '') <> ''
-        """
-        sql = self.makeSql(sql, filter_)
+        sql = self.makeSql("SUM(buy_prices.price)", filter_,
+                           f"status IN {statuses} AND COALESCE(buy_prices.price, '') <> ''")
         execute_query(query, sql)
         if query.first():
             return query.value(0) or 0
 
         return 0
 
-    def _get_sales_net(self, model, filter_):
-        query = QSqlQuery(model.database())
-
-        sql = f"""
-            SELECT SUM(sell_prices.total_price)
-            FROM coins {model.JOIN_SELL_PRICES}
-            WHERE status = 'sold'
-                AND COALESCE(sell_prices.total_price, '') <> ''
-        """
-        sql = self.makeSql(sql, filter_)
+    def _get_sales_net(self, filter_):
+        query = QSqlQuery(self.model.database())
+        sql = self.makeSql("SUM(sell_prices.total_price)", filter_,
+                           "status = 'sold' AND COALESCE(sell_prices.total_price, '') <> ''")
         execute_query(query, sql)
         if query.first():
             return query.value(0) or 0
 
         return 0
 
-    def _get_sales_gross(self, model, filter_):
-        query = QSqlQuery(model.database())
-
-        sql = f"""
-            SELECT SUM(sell_prices.price)
-            FROM coins {model.JOIN_SELL_PRICES}
-            WHERE status='sold'
-                AND COALESCE(sell_prices.price, '') <> ''
-        """
-        sql = self.makeSql(sql, filter_)
+    def _get_sales_gross(self, filter_):
+        query = QSqlQuery(self.model.database())
+        sql = self.makeSql("SUM(sell_prices.price)", filter_,
+                           "status='sold' AND COALESCE(sell_prices.price, '') <> ''")
         execute_query(query, sql)
         if query.first():
             return query.value(0) or 0
