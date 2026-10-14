@@ -196,7 +196,7 @@
     </message>
     <message>
         <source>Add new empty record or clone current record?</source>
-        <translation type="unfinished"/>
+        <translation>Soll ein neuer leerer Eintrag erstellt werden oder soll der aktuelle Eintrag dupliziert werden?</translation>
     </message>
     <message>
         <source>Clone</source>
@@ -204,7 +204,7 @@
     </message>
     <message>
         <source>Are you sure to remove entry?</source>
-        <translation type="unfinished"/>
+        <translation>Wollen Sie den Eintrag wirklich entfernen?</translation>
     </message>
     <message>
         <source>Don&apos;t show this again</source>
@@ -270,7 +270,7 @@ Close the file and try again.</source>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Der Export nach %s ist vollständig</translation>
     </message>
     <message>
         <source>Saving...</source>
@@ -511,12 +511,13 @@ Bitte aktualisieren Sie OpenNumismat</translation>
     </message>
     <message>
         <source>Export to %s completed</source>
-        <translation type="unfinished"/>
+        <translation>Der Export nach %s ist vollständig</translation>
     </message>
     <message>
         <source>Export to %s completed
 Images saved to %s</source>
-        <translation type="unfinished"/>
+        <translation>Der Export nach %s ist vollständig
+Bilder wurden in %s gespeichert</translation>
     </message>
     <message>
         <source>File is open in another program or permission required.
@@ -918,7 +919,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Währung</translation>
     </message>
 </context>
 <context>
@@ -1322,11 +1323,11 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>ARS - Argentine peso</source>
-        <translation type="unfinished"/>
+        <translation>ARS - Argentinischer Peso</translation>
     </message>
     <message>
         <source>AUD - Australian dollar</source>
-        <translation type="unfinished"/>
+        <translation>AUD - Australischer Dollar</translation>
     </message>
     <message>
         <source>BYN - Belarusian ruble</source>
@@ -1334,11 +1335,11 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>CAD - Canadian dollar</source>
-        <translation type="unfinished"/>
+        <translation>CAD - Kanadischer Dollar</translation>
     </message>
     <message>
         <source>CHF - Swiss franc</source>
-        <translation type="unfinished"/>
+        <translation>CHF - Schweizer Franken</translation>
     </message>
     <message>
         <source>CZK - Czech koruna</source>
@@ -1358,11 +1359,11 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>INR - Indian rupee</source>
-        <translation type="unfinished"/>
+        <translation>INR - Indische Rupie</translation>
     </message>
     <message>
         <source>NOK - Norwegian krone</source>
-        <translation type="unfinished"/>
+        <translation>NOK - Norwegische Krone</translation>
     </message>
     <message>
         <source>PLN - Polish złoty</source>
@@ -1513,7 +1514,7 @@ und noch einmal versuchen.</translation>
     </message>
     <message>
         <source>This tag has already been added</source>
-        <translation type="unfinished"/>
+        <translation>Dieser Tag wurde bereits hinzugefügt</translation>
     </message>
     <message>
         <source>Enter value</source>
@@ -1577,7 +1578,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Currency</source>
-        <translation type="unfinished"/>
+        <translation>Währung</translation>
     </message>
     <message>
         <source>Total price</source>
@@ -1585,7 +1586,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Shipping</source>
-        <translation type="unfinished"/>
+        <translation>Versandkosten</translation>
     </message>
     <message>
         <source>Grade</source>
@@ -2277,10 +2278,6 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportExcel</name>
     <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
     </message>
@@ -2293,7 +2290,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>AppID</source>
-        <translation type="unfinished"/>
+        <translation>AppID</translation>
     </message>
     <message>
         <source>Language</source>
@@ -2321,7 +2318,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Client ID</source>
-        <translation type="unfinished"/>
+        <translation>Client ID</translation>
     </message>
     <message>
         <source>Price currency</source>
@@ -2918,8 +2915,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Report saved as %s</source>
-        <translation>Bericht wurde unter
-%s gespeichert</translation>
+        <translation>Bericht wurde unter %s gespeichert</translation>
     </message>
     <message>
         <source>Report saving failed</source>
@@ -2938,7 +2934,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Auction</source>
-        <translation type="unfinished"/>
+        <translation>Auktion</translation>
     </message>
 </context>
 <context>

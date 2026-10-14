@@ -423,7 +423,7 @@ Please update OpenNumismat</source>
     </message>
     <message>
         <source>Attaching reference</source>
-        <translation>Прикачи номенклатура</translation>
+        <translation>Прикачване на номенклатурата</translation>
     </message>
     <message>
         <source>Can't attach reference:
@@ -2282,10 +2282,6 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>ImportExcel</name>
-    <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
-    </message>
     <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
