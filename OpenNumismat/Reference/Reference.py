@@ -610,6 +610,15 @@ class Reference(QObject):
             if query.first():
                 self.sections_with_icons.append(name)
 
+    def reload(self, db=None, fileName=None):
+        if db:
+            self.db = db
+            self.fileName = None
+        else:
+            self.db = QSqlDatabase.addDatabase('QSQLITE', "reference")
+            self.open(fileName)
+        self.load()
+
     def section(self, name):
         # NOTE: payplace and saleplace fields has one reference section =>
         # editing one of it should change another

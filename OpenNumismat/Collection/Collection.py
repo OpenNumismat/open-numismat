@@ -1670,7 +1670,6 @@ class Collection(QObject):
 
             if res:
                 reference.db.commit()
-                self.reference = reference
             else:
                 reference.db.rollback()
                 progressDlg.reset()
@@ -1681,7 +1680,7 @@ class Collection(QObject):
 
             QSqlQuery("DETACH ref", reference.db)
 
-            self.reference.load()
+            self.reference.reload(db=self.db)
 
             progressDlg.reset()
 
@@ -1760,9 +1759,7 @@ class Collection(QObject):
             if res:
                 res = self.db.commit()
 
-            if res:
-                self.reference = reference
-            else:
+            if not res:
                 self.db.rollback()
                 QMessageBox.critical(self.parent(),
                             self.tr("Create reference"),
@@ -1771,7 +1768,7 @@ class Collection(QObject):
 
             QSqlQuery("DETACH ref", reference.db)
 
-            self.reference.load()
+            self.reference.reload(fileName=fileName)
 
             progressDlg.reset()
 
