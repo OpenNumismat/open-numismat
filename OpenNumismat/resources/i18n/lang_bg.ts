@@ -3885,7 +3885,9 @@ Add a new one first.</source>
         <source>Something went wrong when updating. Please restart
 
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Възникна проблем при актуализирането. Моля, рестартирайте приложението
+
+%s</translation>
     </message>
 </context>
 <context>
