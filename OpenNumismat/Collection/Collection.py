@@ -1856,8 +1856,18 @@ class Collection(QObject):
 
     @waitCursorDecorator
     def vacuum(self):
-        QSqlQuery("PRAGMA page_size=4096", self.db)
-        QSqlQuery("VACUUM", self.db)
+        query = QSqlQuery(self.db)
+        if query.exec("PRAGMA quick_check"):
+            query.first()
+            result = query.value(0)
+            if result != "ok":
+                QMessageBox.critical(self.parent(),
+                        self.tr("Check collection"),
+                        self.tr("Errors or damage detected:\n\n%s") % result)
+                return
+
+        query.exec("PRAGMA page_size=4096")
+        query.exec("VACUUM")
 
     @staticmethod
     def fileNameToCollectionName(fileName):
