@@ -509,7 +509,9 @@ Please update OpenNumismat</source>
         <source>Errors or damage detected:
 
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Открити са грешки или повреди:
+
+%s</translation>
     </message>
     <message>
         <source>Exporting records</source>
