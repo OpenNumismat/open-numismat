@@ -8,6 +8,7 @@ on:
       - 'OpenNumismat/resources/i18n/*'
       - 'icons/*'
       - 'OpenNumismat/resources/resources.qrc'
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}
@@ -62,11 +63,6 @@ jobs:
     - name: Create private keys
       run: |
         touch OpenNumismat/private_keys.py
-        echo "FINANCE_PROXY = '${{ secrets.FINANCE_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "COLNECT_PROXY = '${{ secrets.COLNECT_PROXY }}'" >> OpenNumismat/private_keys.py
-        echo "COLNECT_KEY = '${{ secrets.COLNECT_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "NUMISTA_API_KEY = '${{ secrets.NUMISTA_API_KEY }}'" >> OpenNumismat/private_keys.py
-        echo "MAPBOX_ACCESS_TOKEN = '${{ secrets.MAPBOX_ACCESS_TOKEN }}'" >> OpenNumismat/private_keys.py
     - name: Patch portable
       uses: ./.github/actions/replace-string-in-file
       with:
@@ -84,17 +80,6 @@ jobs:
         name: ${{ needs.title.outputs.APPNAME }}-portable
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
-    - name: Signing
-      uses: signpath/github-action-submit-signing-request@v2
-      with:
-        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-        organization-id: '3b087850-3844-4d25-8407-cf81e731f8d1'
-        project-slug: 'open-numismat'
-        signing-policy-slug: 'test-signing'
-        artifact-configuration-slug: 'test-zip'
-        github-artifact-id: '${{steps.upload-portable.outputs.artifact-id}}'
-        output-artifact-directory: dist/${{ needs.title.outputs.APPNAME }}
-        wait-for-completion: true
     - name: package
       run: |
         cd dist
@@ -102,7 +87,7 @@ jobs:
     - name: Upload zip
       uses: actions/upload-artifact@v7
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-portable-signed
+        name: ${{ needs.title.outputs.PACKAGENAME }}-portable
         path: ${{ needs.title.outputs.PACKAGENAME }}.zip
         if-no-files-found: error
 
@@ -134,4 +119,4 @@ jobs:
         name: "Test Build"
         body: "For testing purposes only. Functionality, compatibility, and data integrity are not guaranteed."
         files: |
-          artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable-signed/${{ needs.title.outputs.PACKAGENAME }}.zip
+          artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable/${{ needs.title.outputs.PACKAGENAME }}.zip
