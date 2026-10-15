@@ -502,6 +502,16 @@ Por favor, actualice OpenNumismat</translation>
         <translation>Copia de seguridad guardada como %s</translation>
     </message>
     <message>
+        <source>Check collection</source>
+        <translation>Verificar colección</translation>
+    </message>
+    <message>
+        <source>Errors or damage detected:
+
+%s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Exporting records</source>
         <translation>Exportar registros</translation>
     </message>
@@ -2282,10 +2292,6 @@ arrastrar y soltar para añadir una imagen)</translation>
 <context>
     <name>ImportExcel</name>
     <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
     </message>
@@ -3864,6 +3870,19 @@ Añade una nueva primero.</translation>
     <message>
         <source>Multi edit...</source>
         <translation>Edición múltiple...</translation>
+    </message>
+</context>
+<context>
+    <name>UpdaterTo11</name>
+    <message>
+        <source>Updating</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Something went wrong when updating. Please restart
+
+%s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
