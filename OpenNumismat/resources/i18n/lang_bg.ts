@@ -3879,7 +3879,7 @@ Add a new one first.</source>
     <name>UpdaterTo11</name>
     <message>
         <source>Updating</source>
-        <translation type="unfinished"/>
+        <translation>Актуализиране</translation>
     </message>
     <message>
         <source>Something went wrong when updating. Please restart
