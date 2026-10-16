@@ -122,8 +122,3 @@ jobs:
         generate_release_notes: true
         files: |
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable/${{ needs.title.outputs.PACKAGENAME }}.zip
-
-    - name: Comment PR with Release Link
-      if: github.event_name == 'pull_request'
-      run: |
-        gh pr comment ${{ github.event.pull_request.number }} --body "📦 **Test build is ready!** Release link: ${{ steps.release.outputs.url }}"
