@@ -509,7 +509,9 @@ Por favor, actualize o OpenNumismat</translation>
         <source>Errors or damage detected:
 
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Erros ou estragos detectados:
+
+%s</translation>
     </message>
     <message>
         <source>Exporting records</source>
@@ -3877,7 +3879,7 @@ Adicione uma nova primeiro.</translation>
     <name>UpdaterTo11</name>
     <message>
         <source>Updating</source>
-        <translation type="unfinished"/>
+        <translation>A actualizar</translation>
     </message>
     <message>
         <source>Something went wrong when updating. Please restart
