@@ -3885,7 +3885,9 @@ Adicione uma nova primeiro.</translation>
         <source>Something went wrong when updating. Please restart
 
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Algo correu mal ao actualizar. Por favor, reinicie
+
+%s</translation>
     </message>
 </context>
 <context>
