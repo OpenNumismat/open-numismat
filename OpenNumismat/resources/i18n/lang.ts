@@ -497,6 +497,16 @@ Please update OpenNumismat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Check collection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Errors or damage detected:
+
+%s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Exporting records</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3838,6 +3848,19 @@ Add a new one first.</source>
     </message>
     <message>
         <source>Multi edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpdaterTo11</name>
+    <message>
+        <source>Updating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Something went wrong when updating. Please restart
+
+%s</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
