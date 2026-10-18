@@ -76,6 +76,12 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat-portable.spec
+    - name: install libgphoto2 runtime
+      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+    - name: bundle libgphoto2
+      run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py dist/${{ needs.title.outputs.APPNAME }}
+    - name: test libgphoto2 bundle
+      run: python OpenNumismat/ImageEditor/misc/test_gphoto2_bundle.py dist/${{ needs.title.outputs.APPNAME }}
     - name: Upload
       id: upload-portable
       uses: actions/upload-artifact@v7
@@ -84,6 +90,7 @@ jobs:
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
+      if: ${{ github.repository_owner == 'OpenNumismat' }}
       uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -137,6 +144,12 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat.spec
+    - name: install libgphoto2 runtime
+      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+    - name: bundle libgphoto2
+      run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py dist/${{ needs.title.outputs.APPNAME }}
+    - name: test libgphoto2 bundle
+      run: python OpenNumismat/ImageEditor/misc/test_gphoto2_bundle.py dist/${{ needs.title.outputs.APPNAME }}
     - name: Upload
       id: upload-exe
       uses: actions/upload-artifact@v7
@@ -145,6 +158,7 @@ jobs:
         path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
+      if: ${{ github.repository_owner == 'OpenNumismat' }}
       uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -219,6 +233,12 @@ jobs:
         --windows-icon-from-ico=icons/main.ico
         --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: install libgphoto2 runtime
+      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+    - name: bundle libgphoto2
+      run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py open-numismat.dist
+    - name: test libgphoto2 bundle
+      run: python OpenNumismat/ImageEditor/misc/test_gphoto2_bundle.py open-numismat.dist
     - name: Upload
       id: upload-nuitka-portable
       uses: actions/upload-artifact@v7
@@ -227,6 +247,7 @@ jobs:
         path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
+      if: ${{ github.repository_owner == 'OpenNumismat' }}
       uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -297,6 +318,12 @@ jobs:
         --windows-icon-from-ico=icons/main.ico
         --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
+    - name: install libgphoto2 runtime
+      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+    - name: bundle libgphoto2
+      run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py open-numismat.dist
+    - name: test libgphoto2 bundle
+      run: python OpenNumismat/ImageEditor/misc/test_gphoto2_bundle.py open-numismat.dist
     - name: Upload
       id: upload-nuitka-exe
       uses: actions/upload-artifact@v7
@@ -305,6 +332,7 @@ jobs:
         path: open-numismat.dist/${{ needs.title.outputs.APPNAME }}.exe
         if-no-files-found: error
     - name: Signing
+      if: ${{ github.repository_owner == 'OpenNumismat' }}
       uses: signpath/github-action-submit-signing-request@v2
       with:
         api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -557,6 +585,8 @@ jobs:
     name: Create pre-release
     needs: [title, windows, innosetup, ubuntu, ubuntu-24, ubuntu-26, macos, macos-arm64, nuitka, nuitka_innosetup]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:

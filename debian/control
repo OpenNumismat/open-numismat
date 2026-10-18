@@ -8,7 +8,7 @@ Homepage: https://opennumismat.github.io/
 
 Package: open-numismat
 Architecture: all
-Depends: ${misc:Depends}, python3 (>= 3.10)
+Depends: ${misc:Depends}, python3 (>= 3.10), libgphoto2-6 | libgphoto2-6t64
 Description:  Coin collecting software for organize and manage your own catalogue
  OpenNumismat is a handy and reliable application aimed at coin lovers,
  numismatists or amateurs looking to create a numismatics collection.
