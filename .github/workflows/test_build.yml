@@ -73,6 +73,12 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat-portable.spec
+    - name: install libgphoto2 runtime
+      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+    - name: bundle libgphoto2
+      run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py dist/${{ needs.title.outputs.APPNAME }}
+    - name: test libgphoto2 bundle
+      run: python OpenNumismat/ImageEditor/misc/test_gphoto2_bundle.py dist/${{ needs.title.outputs.APPNAME }}
     - name: Upload
       id: upload-portable
       uses: actions/upload-artifact@v7
@@ -94,7 +100,10 @@ jobs:
   testrelease:
     name: Create test release
     needs: [title, windows]
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
