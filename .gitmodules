@@ -3,4 +3,4 @@
 	url = https://github.com/OpenNumismat/YearCalculator
 [submodule "OpenNumismat/ImageEditor"]
 	path = OpenNumismat/ImageEditor
-	url = https://github.com/OpenNumismat/ImageEditor
+	url = https://github.com/tmtom/ImageEditor
