@@ -3431,7 +3431,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Edelmetall-Gewicht</translation>
     </message>
     <message>
         <source>Precious price</source>
