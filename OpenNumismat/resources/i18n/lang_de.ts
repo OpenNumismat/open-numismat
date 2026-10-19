@@ -2324,7 +2324,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation>Schlüssel</translation>
     </message>
     <message>
         <source>Client ID</source>
