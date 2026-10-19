@@ -3799,7 +3799,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
+        <translation>Erste Zeile ist die Kopfzeile (mit Spaltennamen)</translation>
     </message>
 </context>
 <context>
