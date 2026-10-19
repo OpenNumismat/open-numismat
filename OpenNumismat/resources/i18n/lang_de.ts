@@ -3435,7 +3435,7 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Edelmetall-Preis</translation>
     </message>
     <message>
         <source>Total price</source>
