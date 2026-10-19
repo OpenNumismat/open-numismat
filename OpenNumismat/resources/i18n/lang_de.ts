@@ -1624,7 +1624,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Start bid</source>
-        <translation type="unfinished"/>
+        <translation>Startgebot</translation>
     </message>
 </context>
 <context>
