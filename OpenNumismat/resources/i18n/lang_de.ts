@@ -3877,7 +3877,9 @@ Fügen Sie erst eine Neue ein.</translation>
         <source>Something went wrong when updating. Please restart
 
 %s</source>
-        <translation type="unfinished"/>
+        <translation>Fehler beim updaten. Bitte neu starten
+
+%s</translation>
     </message>
 </context>
 <context>
