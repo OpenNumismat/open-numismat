@@ -3845,7 +3845,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>(Untagged)</source>
-        <translation type="unfinished"/>
+        <translation>(Untagged)</translation>
     </message>
 </context>
 <context>
@@ -3871,7 +3871,7 @@ Fügen Sie erst eine Neue ein.</translation>
     <name>UpdaterTo11</name>
     <message>
         <source>Updating</source>
-        <translation type="unfinished"/>
+        <translation>Updating</translation>
     </message>
     <message>
         <source>Something went wrong when updating. Please restart
