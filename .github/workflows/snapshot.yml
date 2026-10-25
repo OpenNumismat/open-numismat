@@ -77,7 +77,19 @@ jobs:
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat-portable.spec
     - name: install libgphoto2 runtime
-      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+      shell: bash
+      run: |
+        # MSYS2 mirrors occasionally answer 429 when several jobs download
+        # packages in parallel, so retry with backoff before giving up.
+        for i in 1 2 3 4; do
+          if C:/msys64/usr/bin/bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"; then
+            exit 0
+          fi
+          echo "pacman attempt $i failed, retrying in $((i * 20))s..."
+          sleep $((i * 20))
+        done
+        echo "pacman failed after 4 attempts" >&2
+        exit 1
     - name: bundle libgphoto2
       run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py dist/${{ needs.title.outputs.APPNAME }}
     - name: test libgphoto2 bundle
@@ -145,7 +157,19 @@ jobs:
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat.spec
     - name: install libgphoto2 runtime
-      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+      shell: bash
+      run: |
+        # MSYS2 mirrors occasionally answer 429 when several jobs download
+        # packages in parallel, so retry with backoff before giving up.
+        for i in 1 2 3 4; do
+          if C:/msys64/usr/bin/bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"; then
+            exit 0
+          fi
+          echo "pacman attempt $i failed, retrying in $((i * 20))s..."
+          sleep $((i * 20))
+        done
+        echo "pacman failed after 4 attempts" >&2
+        exit 1
     - name: bundle libgphoto2
       run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py dist/${{ needs.title.outputs.APPNAME }}
     - name: test libgphoto2 bundle
@@ -234,7 +258,19 @@ jobs:
         --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: install libgphoto2 runtime
-      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+      shell: bash
+      run: |
+        # MSYS2 mirrors occasionally answer 429 when several jobs download
+        # packages in parallel, so retry with backoff before giving up.
+        for i in 1 2 3 4; do
+          if C:/msys64/usr/bin/bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"; then
+            exit 0
+          fi
+          echo "pacman attempt $i failed, retrying in $((i * 20))s..."
+          sleep $((i * 20))
+        done
+        echo "pacman failed after 4 attempts" >&2
+        exit 1
     - name: bundle libgphoto2
       run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py open-numismat.dist
     - name: test libgphoto2 bundle
@@ -319,7 +355,19 @@ jobs:
         --windows-file-version=${{ needs.title.outputs.VERSION }}
         --output-filename=${{ needs.title.outputs.APPNAME }}.exe
     - name: install libgphoto2 runtime
-      run: C:\msys64\usr\bin\bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"
+      shell: bash
+      run: |
+        # MSYS2 mirrors occasionally answer 429 when several jobs download
+        # packages in parallel, so retry with backoff before giving up.
+        for i in 1 2 3 4; do
+          if C:/msys64/usr/bin/bash.exe -lc "pacman -Sy --noconfirm --needed mingw-w64-ucrt-x86_64-libgphoto2"; then
+            exit 0
+          fi
+          echo "pacman attempt $i failed, retrying in $((i * 20))s..."
+          sleep $((i * 20))
+        done
+        echo "pacman failed after 4 attempts" >&2
+        exit 1
     - name: bundle libgphoto2
       run: python OpenNumismat/ImageEditor/misc/bundle_gphoto2.py open-numismat.dist
     - name: test libgphoto2 bundle
