@@ -1,37 +1,31 @@
 #!/usr/bin/env python3
+# Compile translations and Qt resources before building an installation package.
+#
+# Runs the same scripts as the CI "Build resources" workflow:
+#   misc/ts2qm.py  - compile OpenNumismat/resources/i18n/lang_*.ts to .qm
+#   misc/qrc2py.py - compile OpenNumismat/resources/resources.qrc to resources.py
+#
+# Pass -u (--update-ts) to refresh OpenNumismat/resources/i18n/lang.ts from the
+# sources first (misc/py2ts.py).
+#
+# Generated .qm and resources.py are stored in the repository and are required
+# for running from sources and for building packages.
 
 import os
-from PySide6.QtCore import QLibraryInfo
+import subprocess
+import sys
 
-pyqtPath = QLibraryInfo.path(QLibraryInfo.LibraryExecutablesPath)
+base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-lupdatePath = os.path.join(pyqtPath, 'lupdate')
-lreleasePath = os.path.join(pyqtPath, 'lrelease')
-rccPath = os.path.join(pyqtPath, 'rcc')
+steps = []
+if '-u' in sys.argv or '--update-ts' in sys.argv:
+    steps.append('py2ts.py')
+steps.append('ts2qm.py')
+steps.append('qrc2py.py')
 
-srcFiles = []
-for dirname, dirnames, filenames in os.walk('../OpenNumismat'):
-    for filename in filenames:
-        fileName, fileExtension = os.path.splitext(filename)
-        if fileExtension in ('.py', '.ui') and fileName not in ('resources',):
-            srcFiles.append(os.path.join(dirname, filename))
-
-outputfile = 'lang.ts'
-os.system(' '.join([lupdatePath, ' '.join(srcFiles), '-ts', outputfile, '-noobsolete', '-locations', 'none']))
-# os.system(' '.join([lupdatePath, '../OpenNumismat', '-ts', outputfile, '-noobsolete', '-extensions', ','.join(['py', 'ui'])]))
-
-f = open('langs')
-langs = [x.strip('\n') for x in f.readlines()]
-
-for lang in langs:
-    if lang == 'en':
-        continue
-
-    src_file = 'lang_%s.ts' % lang
-    if os.path.isfile(src_file):
-        dst_file = '../OpenNumismat/translations/lang_%s.qm' % lang
-        os.system(' '.join([lreleasePath, src_file, '-qm', dst_file]))
-
-src_file = '../resources.qrc'
-dst_file = '../OpenNumismat/resources.py'
-os.system(' '.join([rccPath, src_file, '-no-compress', '-o', dst_file, '--generator', 'python']))
+for step in steps:
+    print('Running misc/%s' % step, flush=True)
+    result = subprocess.run([sys.executable, os.path.join(base_path, 'misc', step)],
+                            cwd=base_path)
+    if result.returncode != 0:
+        sys.exit(result.returncode)

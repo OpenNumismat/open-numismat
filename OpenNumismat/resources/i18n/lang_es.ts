@@ -1951,6 +1951,14 @@ Do you want to send an error message to the author?</source>
 <context>
     <name>ImageEdit</name>
     <message>
+        <source>Camera</source>
+        <translation>Cámara</translation>
+    </message>
+    <message>
+        <source>Camera (libgphoto2)</source>
+        <translation>Cámara (libgphoto2)</translation>
+    </message>
+    <message>
         <source>Exchange with</source>
         <translation>Intercambiar con</translation>
     </message>
@@ -2439,6 +2447,10 @@ arrastrar y soltar para añadir una imagen)</translation>
 </context>
 <context>
     <name>MainSettingsPage</name>
+    <message>
+        <source>Use camera</source>
+        <translation>Usar cámara</translation>
+    </message>
     <message>
         <source>Language</source>
         <translation>Idioma</translation>

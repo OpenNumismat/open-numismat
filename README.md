@@ -43,8 +43,14 @@ For running from source code and development requirements can be installed like 
 `pip3 install -r requirements.txt`
 
 ## Building
-Befor building installation package may be necessary:
-* compile translations file with: `python3 tools/build_resources.py`
+Before building installation package may be necessary:
+* compile translations and resources with: `python3 tools/build_resources.py`
+  (runs `misc/ts2qm.py` and `misc/qrc2py.py`; add `-u` to also update `lang.ts` from the sources).
+  The generated `*.qm` and `OpenNumismat/resources/resources.py` are stored in the repository and
+  are needed for running from sources and for building packages; they are refreshed automatically
+  on `master` by the [translations](.github/workflows/py2ts.yml) and
+  [resources](.github/workflows/resources.yml) workflows, and should be regenerated and committed
+  after changing translations, `resources.qrc` or icons.
 * create `OpenNumismat/private_keys.py` with content: `MAPS_API_KEY = '<your Google API key>'`
 
 #### For Windows
