@@ -501,6 +501,16 @@ Vänligen uppdatera OpenNumismat</translation>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Check collection</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Errors or damage detected:
+
+%s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Exporting records</source>
         <translation>Exporterar poster</translation>
     </message>
@@ -2276,10 +2286,6 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportExcel</name>
     <message>
-        <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
         <source>&lt;Ignore&gt;</source>
         <translation>&lt;Ignore&gt;</translation>
     </message>
@@ -3856,6 +3862,19 @@ Lägg till en ny först.</translation>
     <message>
         <source>Multi edit...</source>
         <translation>Multi redigera...</translation>
+    </message>
+</context>
+<context>
+    <name>UpdaterTo11</name>
+    <message>
+        <source>Updating</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <source>Something went wrong when updating. Please restart
+
+%s</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

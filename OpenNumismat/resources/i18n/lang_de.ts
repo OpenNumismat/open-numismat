@@ -498,6 +498,16 @@ Bitte aktualisieren Sie OpenNumismat</translation>
         <translation>Sicherung gespeichert unter %s</translation>
     </message>
     <message>
+        <source>Check collection</source>
+        <translation>Sammlung prüfen</translation>
+    </message>
+    <message>
+        <source>Errors or damage detected:
+
+%s</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Exporting records</source>
         <translation>Exportiere Datensätze</translation>
     </message>
@@ -1614,7 +1624,7 @@ Wollen Sie einen Fehlerbericht an den Autor senden?</translation>
     </message>
     <message>
         <source>Start bid</source>
-        <translation type="unfinished"/>
+        <translation>Startgebot</translation>
     </message>
 </context>
 <context>
@@ -2286,7 +2296,7 @@ drag-n-drop to add an image)</source>
     <name>ImportSettingsPage</name>
     <message>
         <source>Secret</source>
-        <translation type="unfinished"/>
+        <translation>Geheimnis</translation>
     </message>
     <message>
         <source>AppID</source>
@@ -2314,7 +2324,7 @@ drag-n-drop to add an image)</source>
     </message>
     <message>
         <source>Key</source>
-        <translation type="unfinished"/>
+        <translation>Schlüssel</translation>
     </message>
     <message>
         <source>Client ID</source>
@@ -3421,11 +3431,11 @@ Bitte OpenNumismat aktualisieren</translation>
     </message>
     <message>
         <source>Precious weight</source>
-        <translation type="unfinished"/>
+        <translation>Edelmetall-Gewicht</translation>
     </message>
     <message>
         <source>Precious price</source>
-        <translation type="unfinished"/>
+        <translation>Edelmetall-Preis</translation>
     </message>
     <message>
         <source>Total price</source>
@@ -3789,7 +3799,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>First row is header (column names)</source>
-        <translation type="unfinished"/>
+        <translation>Erste Zeile ist die Kopfzeile (mit Spaltennamen)</translation>
     </message>
 </context>
 <context>
@@ -3835,7 +3845,7 @@ Fügen Sie erst eine Neue ein.</translation>
     </message>
     <message>
         <source>(Untagged)</source>
-        <translation type="unfinished"/>
+        <translation>(Untagged)</translation>
     </message>
 </context>
 <context>
@@ -3855,6 +3865,21 @@ Fügen Sie erst eine Neue ein.</translation>
     <message>
         <source>Multi edit...</source>
         <translation>Mehrfach bearbeiten...</translation>
+    </message>
+</context>
+<context>
+    <name>UpdaterTo11</name>
+    <message>
+        <source>Updating</source>
+        <translation>Updating</translation>
+    </message>
+    <message>
+        <source>Something went wrong when updating. Please restart
+
+%s</source>
+        <translation>Fehler beim updaten. Bitte neu starten
+
+%s</translation>
     </message>
 </context>
 <context>
