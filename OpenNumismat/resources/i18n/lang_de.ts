@@ -613,7 +613,7 @@ Die Anwendung muss jetzt neu gestartet werden.</translation>
     </message>
     <message>
         <source>Subject</source>
-        <translation>Betreff</translation>
+        <translation>Ausgabeanlass</translation>
     </message>
     <message>
         <source>Status</source>
