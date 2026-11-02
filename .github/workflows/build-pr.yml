@@ -80,7 +80,7 @@ jobs:
         echo "${{ github.event.pull_request.number }}" > ./pr-metadata/pr_number.txt
         echo "${{ steps.upload-artifact.outputs.artifact-url }}" > ./pr-metadata/artifact_url.txt
     - name: Upload Metadata Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: pr-metadata
         path: pr-metadata/
