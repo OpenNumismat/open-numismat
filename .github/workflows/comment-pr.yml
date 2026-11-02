@@ -1,0 +1,45 @@
+name: Comment PR with Artifact Link
+
+on:
+  workflow_run:
+    workflows: ["Test Build PR"]
+    types:
+      - completed
+
+permissions:
+  pull-requests: write
+  actions: read
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Download PR Metadata
+        uses: actions/download-artifact@v8
+        with:
+          name: pr-metadata
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read Metadata
+        id: metadata
+        run: |
+          echo "PR_NUMBER=$(cat pr_number.txt)" >> $GITHUB_ENV
+          echo "ARTIFACT_URL=$(cat artifact_url.txt)" >> $GITHUB_ENV
+
+      - name: Leave Comment on PR
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const prNumber = parseInt(process.env.PR_NUMBER);
+            const artifactUrl = process.env.ARTIFACT_URL;
+            
+            const body = `### 📦 Test Build Ready!\n\nYou can download the compiled application executable directly from the link below:\n🔗 [Download Built Artifact](${artifactUrl})\n\n*Note: This build was generated automatically for testing purposes. Functionality, compatibility, and data integrity are not guaranteed.*`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: body
+            });
