@@ -1,3 +1,5 @@
+Test
+
 [![CodeFactor](https://www.codefactor.io/repository/github/opennumismat/open-numismat/badge)](https://www.codefactor.io/repository/github/opennumismat/open-numismat)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b7462c1f99f0d9eb039f/maintainability)](https://codeclimate.com/github/OpenNumismat/open-numismat/maintainability)
 [![GitHub release](https://img.shields.io/github/release/opennumismat/open-numismat.svg)](https://github.com/opennumismat/open-numismat/releases/)
