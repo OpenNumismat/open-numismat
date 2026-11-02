@@ -2,13 +2,12 @@ name: "Test build"
 
 on:
   push:
-    branches-ignore:
-      - master
+    branches:
+      - test*
     paths-ignore:
       - 'OpenNumismat/resources/i18n/*'
       - 'icons/*'
       - 'OpenNumismat/resources/resources.qrc'
-  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}
@@ -73,13 +72,6 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat-portable.spec
-    - name: Upload
-      id: upload-portable
-      uses: actions/upload-artifact@v7
-      with:
-        name: ${{ needs.title.outputs.APPNAME }}-portable
-        path: dist/${{ needs.title.outputs.APPNAME }}/${{ needs.title.outputs.APPNAME }}.exe
-        if-no-files-found: error
     - name: package
       run: |
         cd dist
@@ -98,9 +90,6 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-    - uses: actions/checkout@v7
-      with:
-        fetch-depth: 0
     - name: Download artifacts
       uses: actions/download-artifact@v8
       with:
@@ -117,8 +106,6 @@ jobs:
         name: "Test Build"
         body: |
           For testing purposes only. Functionality, compatibility, and data integrity are not guaranteed.
-          ${{ github.event_name == 'pull_request' && format('  
-          🔗 **Pull Request:** #{0} ({1})', github.event.pull_request.number, github.event.pull_request.html_url) || '' }}
         generate_release_notes: true
         files: |
           artifacts/${{ needs.title.outputs.PACKAGENAME }}-portable/${{ needs.title.outputs.PACKAGENAME }}.zip
