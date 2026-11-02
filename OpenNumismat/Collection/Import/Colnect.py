@@ -883,6 +883,7 @@ class ImportColnect(_Import2):
         super().__init__(parent)
         self.colnect = ColnectConnector(parent)
         self.urls = []
+        self.data = []
 
     @staticmethod
     def isAvailable():
@@ -905,6 +906,8 @@ class ImportColnect(_Import2):
                 # with translations.
                 if field.startswith('https://colnect.com/'):
                     self.urls.append(field)
+                    self.data.append(row[-5:])
+                    break
         csvFile.close()
         return True
 
@@ -921,6 +924,16 @@ class ImportColnect(_Import2):
         if data:
             data.append(url)
             self.colnect.makeItem(category, data, record)
+
+            quantity = self.data[row][1].split(',')[0].strip('[]')
+            if quantity:
+                record.setValue('quantity', quantity)
+            grade = self.data[row][2].split(',')[0].strip('[]')
+            if grade:
+                record.setValue('grade', grade)
+            features = self.data[row][3].split(',')[0].strip('[]')
+            if features:
+                record.setValue('features', features)
 
     def _close(self, _connection):
         self.colnect.close()
