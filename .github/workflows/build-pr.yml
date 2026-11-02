@@ -67,16 +67,12 @@ jobs:
       run: |
         SET PYTHONOPTIMIZE=1
         pyinstaller open-numismat-portable.spec
-    - name: package
-      run: |
-        cd dist
-        7z a -r ../${{ needs.title.outputs.PACKAGENAME }}.zip ${{ needs.title.outputs.APPNAME }}
     - name: Upload zip
       id: upload-artifact
       uses: actions/upload-artifact@v7
       with:
-        name: ${{ needs.title.outputs.PACKAGENAME }}-portable
-        path: ${{ needs.title.outputs.PACKAGENAME }}.zip
+        name: ${{ needs.title.outputs.PACKAGENAME }}
+        path: dist/${{ needs.title.outputs.APPNAME }}
         if-no-files-found: error
     - name: Save PR metadata
       run: |
