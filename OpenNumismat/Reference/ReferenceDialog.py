@@ -79,6 +79,7 @@ class ListView(QListView):
 
     def contextMenuEvent(self, event):
         index = self.selectedIndex()
+        indexes = self.selectedIndexes()
 
         menu = QMenu(self)
 
@@ -111,15 +112,16 @@ class ListView(QListView):
             act = menu.addAction(self.tr("Change icon..."), self.addIcon)
         else:
             act = menu.addAction(self.tr("Add icon..."), self.addIcon)
-        if not index:
+        if not index or len(indexes) > 1:
             act.setDisabled(True)
 
         act = menu.addAction(self.tr("Paste icon"), self.pasteIcon)
-        if not index:
+        mime = QApplication.clipboard().mimeData()
+        if not index or len(indexes) > 1 or not mime.hasImage():
             act.setDisabled(True)
 
         act = menu.addAction(self.tr("Clear icon"), self.clearIcon)
-        if not index or not index.data(Qt.DecorationRole):
+        if not index or not index.data(Qt.DecorationRole) or len(indexes) > 1:
             act.setDisabled(True)
 
         menu.exec(self.mapToGlobal(event.pos()))
