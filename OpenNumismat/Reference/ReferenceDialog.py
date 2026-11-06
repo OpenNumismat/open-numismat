@@ -1,7 +1,7 @@
 import sys
 
-from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QMimeData, QRect, QPoint
-from PySide6.QtGui import QImage, QKeySequence, QPainter, QIcon
+from PySide6.QtCore import Qt, QByteArray, QDataStream, QFileInfo, QIODevice, QBuffer, QMimeData, QRect, QPoint
+from PySide6.QtGui import QImage, QKeySequence, QIcon, QPainter, QPixmap
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
     QAbstractItemView,
@@ -33,6 +33,7 @@ from OpenNumismat.Tools.misc import readImageFilters
 
 class ListView(QListView):
     latestDir = OpenNumismat.IMAGE_PATH
+    MimeType = "application/x-opennumismat-referenceitems"
 
     def __init__(self, widget, parent=None):
         super().__init__(parent)
@@ -227,17 +228,49 @@ class ListView(QListView):
         text_data = []
 
         indexes = self.selectedIndexes()
+
+        byte_array = QByteArray()
+        stream = QDataStream(byte_array, QIODevice.OpenModeFlag.WriteOnly)
+
+        stream.writeInt16(len(indexes))
+
         for index in indexes:
-            text_data.append(index.data())
+            text = index.data(Qt.ItemDataRole.DisplayRole) or ""
+            pixmap = index.data(Qt.ItemDataRole.DecorationRole)
+
+            text_data.append(text)
+
+            stream.writeString(text)
+            stream.writeQVariant(pixmap)
+
         mime = QMimeData()
         mime.setText('\n'.join(text_data))
+        mime.setData(self.MimeType, byte_array)
 
         clipboard = QApplication.clipboard()
         clipboard.setMimeData(mime)
 
     def paste(self):
         mime = QApplication.clipboard().mimeData()
-        if mime.hasText():
+        if mime.hasFormat(self.MimeType):
+            byte_array = mime.data(self.MimeType)
+            stream = QDataStream(byte_array, QIODevice.OpenModeFlag.ReadOnly)
+
+            count = stream.readInt16()
+            for _ in range(count):
+                text = stream.readString()
+                pixmap = stream.readQVariant()
+
+                icon = None
+                if isinstance(pixmap, QPixmap) and not pixmap.isNull():
+                    buffer = QBuffer()
+                    buffer.open(QIODevice.WriteOnly)
+                    pixmap.save(buffer, 'webp', 100)
+                    icon = buffer.data()
+
+                self.widget.appendItem(text, icon)
+                self.model().submit()
+        elif mime.hasText():
             text_data = mime.text()
             for text in text_data.split('\n'):
                 text = text.strip()
@@ -321,7 +354,7 @@ class ReferenceWidget(QWidget):
         self.proxyModel.setDynamicSortFilter(True)
         self.model.select()
 
-    def appendItem(self, text):
+    def appendItem(self, text, icon):
         self.proxyModel.setDynamicSortFilter(False)
         row = self.proxyModel.rowCount()
         self.proxyModel.insertRow(row)
@@ -329,6 +362,9 @@ class ReferenceWidget(QWidget):
         self.proxyModel.setData(index, self.model.nextPosition())
         index = self.proxyModel.index(row, self.model.fieldIndex('value'))
         self.proxyModel.setData(index, text)
+        if icon:
+            index = self.proxyModel.index(row, self.model.fieldIndex('icon'))
+            self.proxyModel.setData(index, icon)
         self.proxyModel.setDynamicSortFilter(True)
 
     def isEnabled(self):
@@ -392,7 +428,7 @@ class CrossReferenceWidget(ReferenceWidget):
         self.proxyModel.setDynamicSortFilter(True)
         self.model.select()
 
-    def appendItem(self, text):
+    def appendItem(self, text, icon=None):
         self.proxyModel.setDynamicSortFilter(False)
         idIndex = self.rel.fieldIndex('id')
         index = self.crossProxyModel.index(self.comboBox.currentIndex(), idIndex)
@@ -406,6 +442,9 @@ class CrossReferenceWidget(ReferenceWidget):
         self.proxyModel.setData(index, self.model.nextPosition())
         index = self.proxyModel.index(row, self.model.fieldIndex('value'))
         self.proxyModel.setData(index, text)
+        if icon:
+            index = self.proxyModel.index(row, self.model.fieldIndex('icon'))
+            self.proxyModel.setData(index, icon)
         self.proxyModel.setDynamicSortFilter(True)
 
     def isEnabled(self):
