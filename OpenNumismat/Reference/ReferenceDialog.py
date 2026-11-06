@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QRect, QPoint
+from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QMimeData, QRect, QPoint
 from PySide6.QtGui import QImage, QKeySequence, QPainter, QIcon
 from PySide6.QtWidgets import (
     QAbstractItemDelegate,
@@ -90,6 +90,16 @@ class ListView(QListView):
         act = menu.addAction(self.tr("Delete"), self.deleteItem)
         act.setShortcut(QKeySequence.Delete)
         if not index:
+            act.setDisabled(True)
+
+        act = menu.addAction(QIcon(':/page_copy.png'),
+                             self.tr("Copy"), self.copy, QKeySequence.Copy)
+        if not index:
+            act.setDisabled(True)
+        act = menu.addAction(QIcon(':/page_paste.png'),
+                       self.tr("Paste"), self.paste, QKeySequence.Paste)
+        mime = QApplication.clipboard().mimeData()
+        if not mime.hasText():
             act.setDisabled(True)
 
         menu.addSeparator()
@@ -213,6 +223,28 @@ class ListView(QListView):
         index = model.index(self.selectedIndex().row(), model.sourceModel().fieldIndex('icon'))
         model.setData(index, None)
 
+    def copy(self):
+        text_data = []
+
+        indexes = self.selectedIndexes()
+        for index in indexes:
+            text_data.append(index.data())
+        mime = QMimeData()
+        mime.setText('\n'.join(text_data))
+
+        clipboard = QApplication.clipboard()
+        clipboard.setMimeData(mime)
+
+    def paste(self):
+        mime = QApplication.clipboard().mimeData()
+        if mime.hasText():
+            text_data = mime.text()
+            for text in text_data.split('\n'):
+                text = text.strip()
+                if text:
+                    self.widget.appendItem(text)
+                    self.model().submit()
+
 
 class ReferenceWidget(QWidget):
     def __init__(self, section, text, parent=None):
@@ -289,6 +321,16 @@ class ReferenceWidget(QWidget):
         self.proxyModel.setDynamicSortFilter(True)
         self.model.select()
 
+    def appendItem(self, text):
+        self.proxyModel.setDynamicSortFilter(False)
+        row = self.proxyModel.rowCount()
+        self.proxyModel.insertRow(row)
+        index = self.proxyModel.index(row, self.model.fieldIndex('position'))
+        self.proxyModel.setData(index, self.model.nextPosition())
+        index = self.proxyModel.index(row, self.model.fieldIndex('value'))
+        self.proxyModel.setData(index, text)
+        self.proxyModel.setDynamicSortFilter(True)
+
     def isEnabled(self):
         return True
 
@@ -349,6 +391,22 @@ class CrossReferenceWidget(ReferenceWidget):
             self.proxyModel.removeRow(index.row())
         self.proxyModel.setDynamicSortFilter(True)
         self.model.select()
+
+    def appendItem(self, text):
+        self.proxyModel.setDynamicSortFilter(False)
+        idIndex = self.rel.fieldIndex('id')
+        index = self.crossProxyModel.index(self.comboBox.currentIndex(), idIndex)
+        parentId = self.crossProxyModel.data(index)
+
+        row = self.proxyModel.rowCount()
+        self.proxyModel.insertRow(row)
+        index = self.proxyModel.index(row, self.model.parentidIndex)
+        self.proxyModel.setData(index, parentId)
+        index = self.proxyModel.index(row, self.model.fieldIndex('position'))
+        self.proxyModel.setData(index, self.model.nextPosition())
+        index = self.proxyModel.index(row, self.model.fieldIndex('value'))
+        self.proxyModel.setData(index, text)
+        self.proxyModel.setDynamicSortFilter(True)
 
     def isEnabled(self):
         return self.comboBox.currentIndex() >= 0
