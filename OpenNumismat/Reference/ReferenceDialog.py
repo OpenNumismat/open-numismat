@@ -46,6 +46,14 @@ class ListView(QListView):
 
         self.widget = widget
 
+    def startDrag(self, supportedActions):
+        indexes = self.selectedIndexes()
+
+        if len(indexes) > 1:
+            return
+
+        super().startDrag(supportedActions)
+
     def commitData(self, editor):
         text = editor.text().strip()
         if len(text) > 0:
