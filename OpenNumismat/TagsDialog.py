@@ -1,4 +1,4 @@
-from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer, QTimer
+from PySide6.QtCore import Qt, QFileInfo, QIODevice, QBuffer
 from PySide6.QtGui import QIcon, QImage, QKeySequence, QPainter, QPixmap
 from PySide6.QtSql import QSqlQuery
 from PySide6.QtWidgets import (
