@@ -1,6 +1,6 @@
 Company = 'Janis'
 AppName = 'OpenNumismat'
-Version = '1.11.2'
+Version = '1.11.3'
 Web = 'https://opennumismat.github.io/'
 Author = 'Vitaly Ignatov'
 EMail = 'opennumismat@gmail.com'
