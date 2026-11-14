@@ -11,7 +11,7 @@ from PySide6.QtGui import QPixmap, QImage, QPainter
 
 from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
-from OpenNumismat.Collection.CollectionFields import FieldTypes as Type
+from OpenNumismat.Collection.CollectionFields import CollectionFieldsBase, FieldTypes as Type
 from OpenNumismat.Settings import Settings
 from OpenNumismat.Tools.CachedPoolManager import CachedPoolManager
 
@@ -139,6 +139,8 @@ class ImportExcel(_Import2):
         self.images = {}
         self.allSheetImagesIndexed = False
         self.has_header = True
+        self.export_fields = []
+        self.export_headers = []
 
     @staticmethod
     def isAvailable():
@@ -217,9 +219,14 @@ class ImportExcel(_Import2):
 
         self.sheet = book.active
 
-        # See Collection.exportToExcel, do not count 'id', 'createdat', 'updatedat', 'sort_id'.
-        # And 'image' of Type.PreviewImage. So in total 5 "internal" fields/columns.
-        MAX_COLUMN_COUNT = len(self.fields.fields) - 5
+        # Keep the import mapping in sync with Collection.exportToExcel, which
+        # exports all fields except internal fields and the preview image.
+        exported_fields = [field for field in CollectionFieldsBase()
+                           if field.name not in ('id', 'createdat', 'updatedat', 'sort_id')
+                           and field.type != Type.PreviewImage]
+        self.export_fields = [self.fields.field(field.id) for field in exported_fields]
+        self.export_headers = [field.title for field in exported_fields]
+        MAX_COLUMN_COUNT = len(self.export_fields)
         self.sheet_max_column = min(self.sheet.max_column, MAX_COLUMN_COUNT)
 
         self.sheetImages = {}
@@ -240,9 +247,8 @@ class ImportExcel(_Import2):
             combo.lineEdit().setReadOnly(True)
             combo.lineEdit().setAlignment(Qt.AlignCenter)
             combo.addItem(self.tr("<Ignore>"))
-            for f in self.fields.userFields:
-                if f not in self.fields.systemFields:
-                    combo.addItem(f.title, f)
+            for f in self.export_fields:
+                combo.addItem(f.title, f)
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             combo.setStyleSheet("QComboBox { font-weight: 700; }")
             combo.currentIndexChanged.connect(dialog.comboChanged)
@@ -344,10 +350,32 @@ class ImportExcel(_Import2):
         return item
 
     def _setDefaultFieldSelections(self, has_header):
+        is_export_format = self._isExportFormat(has_header)
         for col, combo in enumerate(self.comboBoxes):
             combo.blockSignals(True)
-            combo.setCurrentIndex(self.defaultField(col, combo, has_header))
+            if is_export_format:
+                index = combo.findData(self.export_fields[col])
+            else:
+                index = self.defaultField(col, combo, has_header)
+            combo.setCurrentIndex(index)
             combo.blockSignals(False)
+
+    def _isExportFormat(self, has_header):
+        if not has_header or self.sheet.max_column != len(self.export_fields):
+            return False
+
+        headers = []
+        for col in range(self.sheet.max_column):
+            title = self.sheet.cell(1, col + 1).value
+            if title is None:
+                title = ''
+            elif isinstance(title, datetime.datetime):
+                title = title.date().isoformat()
+            elif isinstance(title, datetime.time):
+                title = ''
+            headers.append(str(title))
+
+        return headers == self.export_headers
 
     def _getRowsCount(self, book):
         if self.has_header:
