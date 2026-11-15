@@ -5,9 +5,13 @@ import os
 
 from dateutil import parser
 
-from PySide6.QtCore import Qt, QSize
-from PySide6.QtWidgets import QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QDialogButtonBox, QComboBox, QCheckBox
-from PySide6.QtGui import QPixmap, QImage, QPainter
+from PySide6.QtCore import (Qt, QSize, QEvent, QSortFilterProxyModel, QPointF)
+from PySide6.QtWidgets import (QDialog, QTableWidget, QTableWidgetItem, QVBoxLayout,
+                               QDialogButtonBox, QComboBox, QCheckBox, QLabel,
+                               QStyledItemDelegate, QStyle, QStyleOptionViewItem,
+                               QApplication)
+from PySide6.QtGui import (QPixmap, QImage, QPainter, QColor, QTextLayout,
+                           QTextCharFormat, QTextOption)
 
 from OpenNumismat.Collection.Import import _Import2, _InvalidDatabaseError
 from OpenNumismat.Tools.DialogDecorators import storeDlgSizeDecorator
@@ -19,6 +23,342 @@ IMAGE_CONNECTION_TIMEOUT = 30
 IMAGE_PREVIEW_SIZE = 64
 IMAGE_SOURCE_ROLE = Qt.UserRole + 1
 IMAGE_PREVIEW_ROLE = Qt.UserRole + 2
+
+
+def _blendColors(color1, color2):
+    return QColor((color1.red() + color2.red()) // 2,
+                  (color1.green() + color2.green()) // 2,
+                  (color1.blue() + color2.blue()) // 2)
+
+
+def _errorColor(palette):
+    if palette.window().color().lightness() < 128:
+        return QColor(255, 110, 110)   # dark theme
+    return QColor(190, 45, 45)         # light theme
+
+
+class FilterHighlightDelegate(QStyledItemDelegate):
+    """Mark filter matches in item labels, keeping the native item rendering."""
+
+    MARK_COLOR = QColor(220, 120, 20)
+
+    def __init__(self, combo):
+        """Create the delegate for the combo holding the active filter."""
+        super().__init__(combo)
+        self._combo = combo
+
+    def paint(self, painter, option, index):
+        # The style draws the row and its label as everywhere else in the
+        # application; the matched letters are underlined using the same text
+        # layout the style draws the label with (see
+        # QCommonStylePrivate::viewItemDrawText), so the marks always sit
+        # under the right letters on any style and color scheme
+        opt = QStyleOptionViewItem(option)
+        self.initStyleOption(opt, index)
+        widget = opt.widget
+        style = widget.style() if widget is not None else QApplication.style()
+        style.drawControl(QStyle.CE_ItemViewItem, opt, painter, widget)
+
+        query = self._combo.filterQuery()
+        if not query or not isinstance(opt.text, str) or not opt.text:
+            return
+
+        rect = style.subElementRect(QStyle.SE_ItemViewItemText, opt, widget)
+        margin = style.pixelMetric(QStyle.PM_FocusFrameHMargin, opt, widget) + 1
+        rect = rect.adjusted(margin, 0, -margin, 0)
+        shown = opt.fontMetrics.elidedText(opt.text, opt.textElideMode,
+                                           rect.width())
+
+        marks = self._findMatches(shown, query)
+        if not marks:
+            return
+
+        layout, line = self._labelLayout(opt, shown, rect.width(),
+                                         self._markFormats(marks))
+        origin = QPointF(rect.x(),
+                         rect.y() + (rect.height() - round(line.height())) // 2)
+
+        painter.save()
+        painter.setClipRect(opt.rect)
+        painter.setPen(Qt.transparent)   # the label itself stays native
+        layout.draw(painter, origin)
+        painter.restore()
+
+    @staticmethod
+    def _labelLayout(opt, text, width, formats):
+        # Same text layout as the style draws the label with; the formats
+        # must be set before the layout starts or they are ignored
+        text_option = QTextOption()
+        text_option.setWrapMode(QTextOption.ManualWrap)
+        text_option.setTextDirection(opt.direction)
+        text_option.setAlignment(
+            QStyle.visualAlignment(opt.direction, opt.displayAlignment))
+        layout = QTextLayout(text, opt.font)
+        layout.setTextOption(text_option)
+        layout.setFormats(formats)
+        layout.beginLayout()
+        line = layout.createLine()
+        line.setLineWidth(width)
+        layout.endLayout()
+        return layout, line
+
+    @classmethod
+    def _markFormats(cls, marks):
+        formats = []
+        for begin, end in marks:
+            mark = QTextCharFormat()
+            mark.setUnderlineStyle(QTextCharFormat.SingleUnderline)
+            mark.setUnderlineColor(cls.MARK_COLOR)
+            run = QTextLayout.FormatRange()
+            run.start = begin
+            run.length = end - begin
+            run.format = mark
+            formats.append(run)
+        return formats
+
+    @staticmethod
+    def _findMatches(text, query):
+        matches = []
+        if not query:
+            return matches
+        start = 0
+        lower_text = text.lower()
+        lower_query = query.lower()
+        while True:
+            pos = lower_text.find(lower_query, start)
+            if pos < 0:
+                return matches
+            matches.append((pos, pos + len(query)))
+            start = pos + len(query)
+
+
+class FilterComboBox(QComboBox):
+
+    def __init__(self, parent=None):
+        """Create the combo and install filtering support via enableFilter."""
+        super().__init__(parent)
+        self._filter_query = ''
+        self._filtering = False
+        self._selected_row = 0
+        self._source_model = None
+        self._filter_model = None
+        self._count_label = None
+
+    def enableFilter(self):
+        self._source_model = self.model()
+        self._filter_model = QSortFilterProxyModel(self)
+        self._filter_model.setSourceModel(self._source_model)
+        self._source_model.setParent(self._filter_model)
+        self._filter_model.setFilterKeyColumn(0)
+        self._filter_model.setFilterCaseSensitivity(Qt.CaseInsensitive)
+        self.setModel(self._filter_model)
+        self.view().installEventFilter(self)
+        self.view().viewport().installEventFilter(self)
+        if self.lineEdit() is not None:
+            self.lineEdit().installEventFilter(self)
+            self._count_label = QLabel(self.lineEdit())
+            font = self._count_label.font()
+            font.setPointSizeF(font.pointSizeF() * 0.85)
+            self._count_label.setFont(font)
+            self._count_label.setAttribute(Qt.WA_TransparentForMouseEvents)
+            self._count_label.hide()
+        self.setItemDelegate(FilterHighlightDelegate(self))
+        self.currentIndexChanged.connect(self._rememberSelection)
+        self.currentTextChanged.connect(self._showFromStart)
+
+    def filterQuery(self):
+        return self._filter_query
+
+    def _updateFilterFeedback(self):
+        count = self._filter_model.rowCount() if self._filter_query else 0
+        self._showQuery(self._filter_query, count)
+
+    def _showQuery(self, query, count):
+        line_edit = self.lineEdit()
+        if line_edit is None:
+            return
+
+        if query:
+            # Show the typed letters instead of the current item
+            error = not count
+            line_edit.setText(query)
+            if error:
+                color = _errorColor(self.palette())
+            else:
+                color = _blendColors(self.palette().text().color(),
+                                     self.palette().base().color())
+            line_edit.setStyleSheet(
+                'color: %s; font-style: italic; font-weight: 400;' % color.name())
+            self._updateCountLabel(count, error)
+        else:
+            if self._count_label is not None:
+                self._count_label.hide()
+            line_edit.setTextMargins(0, 0, 0, 0)
+            line_edit.setStyleSheet('')
+            line_edit.setText(self.currentText())
+        # A read-only line edit scrolls to the cursor after setText; show
+        # the text from its beginning instead of from its end
+        line_edit.setCursorPosition(0)
+
+    def _showFromStart(self):
+        line_edit = self.lineEdit()
+        if line_edit is not None and not self._filter_query:
+            line_edit.setCursorPosition(0)
+
+    def _updateCountLabel(self, count, error=False):
+        label = self._count_label
+        label.setText('(%d)' % count)
+        # Keep the widget font in sync with the painted weight so the
+        # size hint (and thus the label box) fits the text
+        font = label.font()
+        font.setBold(error)
+        label.setFont(font)
+        if error:
+            # Match the error color of the query and stand out
+            color = _errorColor(self.palette()).name()
+            weight = 700
+        else:
+            color = self.palette().placeholderText().color().name()
+            weight = 400
+        label.setStyleSheet(
+            'color: %s; font-style: normal; font-weight: %d;' % (color, weight))
+        label.show()
+        label.raise_()
+        self._positionCountLabel()
+
+    def _positionCountLabel(self):
+        line_edit = self.lineEdit()
+        label = self._count_label
+        if line_edit is None or label is None:
+            return
+        label.adjustSize()
+        label.move(line_edit.width() - label.width() - 6,
+                   (line_edit.height() - label.height()) // 2)
+        line_edit.setTextMargins(0, 0, label.width() + 12, 0)
+
+    def _rememberSelection(self, index):
+        if not self._filtering and index >= 0:
+            source_index = self._filter_model.mapToSource(
+                self._filter_model.index(index, 0))
+            self._selected_row = source_index.row()
+
+    def rememberCurrentSelection(self):
+        self._rememberSelection(self.currentIndex())
+
+    def selectedData(self):
+        if self._source_model is None:
+            return self.currentData()
+        return self._source_model.index(
+            self._selected_row, 0).data(Qt.UserRole)
+
+    def _applyFilter(self, query):
+        self._filter_query = query
+        self._filtering = True
+        self._filter_model.setFilterFixedString(query)
+        source_index = self._source_model.index(self._selected_row, 0)
+        proxy_index = self._filter_model.mapFromSource(source_index)
+        self.setCurrentIndex(proxy_index.row() if proxy_index.isValid() else -1)
+        if proxy_index.isValid():
+            self.view().setCurrentIndex(proxy_index)
+        else:
+            self.view().selectionModel().clearCurrentIndex()
+        self._filtering = False
+        # Rows surviving the filter change must repaint to update the marks
+        self.view().viewport().update()
+        self._updateFilterFeedback()
+
+    def showPopup(self):
+        self._applyFilter('')
+        super().showPopup()
+
+    def hidePopup(self):
+        super().hidePopup()
+        if self._filter_query:
+            self._applyFilter('')
+
+    def _moveHighlight(self, key):
+        if not self.count():
+            return
+        step = 1 if key == Qt.Key_Down else -1
+        row = self.view().currentIndex().row()
+        if row < 0:
+            row = self.currentIndex()
+        if row < 0:
+            row = 0 if step > 0 else self.count() - 1
+        else:
+            row = max(0, min(self.count() - 1, row + step))
+
+        index = self._filter_model.index(row, 0)
+        self.view().setCurrentIndex(index)
+        self.view().scrollTo(index)
+        self.setCurrentIndex(row)
+        self._updateFilterFeedback()
+
+    def eventFilter(self, watched, event):
+        if event.type() == QEvent.Resize and watched is self.lineEdit():
+            self._positionCountLabel()
+            self._showFromStart()
+        if event.type() != QEvent.KeyPress:
+            return super().eventFilter(watched, event)
+
+        if watched is self.lineEdit():
+            handled = self._lineEditKey(event)
+        elif watched in (self.view(), self.view().viewport()):
+            handled = self._viewKey(event)
+        else:
+            handled = False
+        if handled:
+            return True
+        return super().eventFilter(watched, event)
+
+    def _lineEditKey(self, event):
+        key = event.key()
+        if key in (Qt.Key_Return, Qt.Key_Enter):
+            if not self.view().isVisible():
+                self.showPopup()
+                return True
+        elif self._isFilterChar(event) and not self.view().isVisible():
+            # Start filtering even before the popup is opened
+            self.showPopup()
+            self._applyFilter(self._filter_query + event.text())
+            return True
+        return False
+
+    def _viewKey(self, event):
+        key = event.key()
+        if key in (Qt.Key_Up, Qt.Key_Down):
+            self._moveHighlight(key)
+            return True
+        if key == Qt.Key_Escape and self._filter_query:
+            self._applyFilter('')
+            return True
+        if key == Qt.Key_Backspace and self._filter_query:
+            self._applyFilter(self._filter_query[:-1])
+            return True
+        if self._isFilterChar(event):
+            self._applyFilter(self._filter_query + event.text())
+            return True
+        return False
+
+    @staticmethod
+    def _isFilterChar(event):
+        text = event.text()
+        return (text and text.isprintable() and
+                not (event.modifiers() &
+                     (Qt.ControlModifier | Qt.AltModifier)))
+
+    def keyPressEvent(self, event):
+        if (event.key() in (Qt.Key_Return, Qt.Key_Enter) and
+                not self.view().isVisible()):
+            self.showPopup()
+            event.accept()
+            return
+        if (self.view().isVisible() and
+                event.key() in (Qt.Key_Up, Qt.Key_Down)):
+            self._moveHighlight(event.key())
+            event.accept()
+            return
+        super().keyPressEvent(event)
 
 
 @storeDlgSizeDecorator
@@ -57,7 +397,7 @@ class TableDialog(QDialog):
         for col in range(self.table.columnCount()):
             combo = self.table.cellWidget(0, col)
             if combo is not None:
-                self._updateColumnPreview(col, combo.currentData())
+                self._updateColumnPreview(col, combo.selectedData())
 
     def _resetRowHeights(self):
         for row in range(1, self.table.rowCount()):
@@ -234,7 +574,7 @@ class ImportExcel(_Import2):
 
         self.comboBoxes = []
         for col in range(self.sheet_max_column):
-            combo = QComboBox()
+            combo = FilterComboBox()
             combo.setEditable(True)
             combo.setInsertPolicy(QComboBox.NoInsert)
             combo.lineEdit().setReadOnly(True)
@@ -243,8 +583,10 @@ class ImportExcel(_Import2):
             for f in self.fields.userFields:
                 if f not in self.fields.systemFields:
                     combo.addItem(f.title, f)
+            combo.enableFilter()
             combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
             combo.setStyleSheet("QComboBox { font-weight: 700; }")
+            combo.setToolTip(self.tr("Type to filter fields; press Esc to show all fields"))
             combo.currentIndexChanged.connect(dialog.comboChanged)
             dialog.table.setCellWidget(0, col, combo)
 
@@ -262,7 +604,7 @@ class ImportExcel(_Import2):
             self.has_status = False
             for i in range(dialog.table.columnCount()):
                 combo = dialog.table.cellWidget(0, i)
-                field = combo.currentData() if combo is not None else None
+                field = combo.selectedData() if combo is not None else None
                 self.selected_fields.append(field)
 
                 if field:
@@ -348,6 +690,7 @@ class ImportExcel(_Import2):
             combo.blockSignals(True)
             combo.setCurrentIndex(self.defaultField(col, combo, has_header))
             combo.blockSignals(False)
+            combo.rememberCurrentSelection()
 
     def _getRowsCount(self, book):
         if self.has_header:
