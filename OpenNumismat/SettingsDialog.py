@@ -817,6 +817,11 @@ class ImportSettingsPage(QWidget):
         fLayout = QFormLayout()
         fLayout.setRowWrapPolicy(QFormLayout.WrapLongRows)
 
+        self.colnect_image_proxy = QCheckBox(self.tr("Use Colnect proxy for get images"),
+                                             self)
+        self.colnect_image_proxy.setChecked(settings['colnect_image_proxy'])
+        fLayout.addRow(self.colnect_image_proxy)
+
         self.colnect_api_key = QLineEdit(self)
         self.colnect_api_key.setMinimumWidth(40)
         self.colnect_api_key.setText(settings['colnect_api_key'])
@@ -928,6 +933,7 @@ class ImportSettingsPage(QWidget):
     def save(self):
         settings = Settings()
 
+        settings['colnect_image_proxy'] = self.colnect_image_proxy.isChecked()
         settings['colnect_locale'] = self.colnect_locale.currentData()
         settings['colnect_skip_currency'] = self.skip_currency.isChecked()
         settings['colnect_api_key'] = self.colnect_api_key.text()

@@ -151,6 +151,7 @@ class Settings(BaseSettings):
         'numista_client_id': '',
         'colnect_api_key': '',
         'colnect_app_id': '',
+        'colnect_image_proxy': False,
     }
 
     def __init__(self, autoSave=False):

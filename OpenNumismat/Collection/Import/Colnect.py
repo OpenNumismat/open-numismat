@@ -54,6 +54,7 @@ class ColnectConnector(QObject):
 
         settings = Settings()
 
+        self.use_image_proxy = settings['colnect_image_proxy']
         self.skip_currency = settings['colnect_skip_currency']
         self.lang = settings['colnect_locale']
         if settings['colnect_api_key'] and settings['colnect_app_id']:
@@ -229,9 +230,15 @@ class ColnectConnector(QObject):
 
     def _imageUrl(self, image_id, name, full):
         name = self._urlize(name)
-        url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
-            ('b' if full else 't'), image_id // 1000, image_id % 1000, name)
-            # ('f' if full else 't'), image_id // 1000, image_id % 1000, name)
+        if not self.use_image_proxy:
+            url = "https://i.colnect.net/%s/%d/%03d/%s.jpg" % (
+                ('b' if full else 't'), image_id // 1000, image_id % 1000, name)
+                # ('f' if full else 't'), image_id // 1000, image_id % 1000, name)
+        else:
+            url = "%s/images/%s/%d/%03d/%s.jpg" % (
+                COLNECT_PROXY,
+                ('b' if full else 't'),
+                image_id // 1000, image_id % 1000, name)
         return url
 
     def _urlize(self, name):
