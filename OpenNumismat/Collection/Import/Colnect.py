@@ -200,9 +200,9 @@ class ColnectConnector(QObject):
     @waitCursorDecorator
     def getFields(self, category):
         if self.use_colnect_proxy:
-            url = f"{self.server_url}/{self.uuid}/en/api/{self.app_id}/fields/cat/{category}"
+            url = f"{self.server_url}/{self.uuid}/en/api/{self.app_id}/field_titles/cat/{category}"
         else:
-            url = f"{self.server_url}/en/api/{self.app_id}/fields/cat/{category}"
+            url = f"{self.server_url}/en/api/{self.app_id}/field_titles/cat/{category}"
         headers = self.get_headers(url)
 
         response_data = self.http.get(url, headers=headers)
