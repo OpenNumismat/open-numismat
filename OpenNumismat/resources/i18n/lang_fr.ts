@@ -2289,6 +2289,10 @@ drag-n-drop to add an image)</source>
 <context>
     <name>ImportSettingsPage</name>
     <message>
+        <source>Use Colnect proxy for get images</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Secret</source>
         <translation type="unfinished"/>
     </message>
