@@ -2307,7 +2307,7 @@ drag-n-drop to add an image)</source>
     <name>ImportSettingsPage</name>
     <message>
         <source>Use Colnect proxy for get images</source>
-        <translation type="unfinished"/>
+        <translation>Использовать прокси Colnect для получения изображений</translation>
     </message>
     <message>
         <source>Secret</source>
