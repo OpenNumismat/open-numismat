@@ -1168,7 +1168,7 @@ The application will need to restart now.</source>
     </message>
     <message>
         <source>Use your own &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI keys&lt;/a&gt; for extend limits.</source>
-        <translation type="unfinished"/>
+        <translation>Используйте свои &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI ключи&lt;/a&gt; для увеличения лимитов.</translation>
     </message>
     <message>
         <source>Daily request limit reached</source>
