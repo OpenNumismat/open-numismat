@@ -1167,6 +1167,10 @@ The application will need to restart now.</source>
         <translation>Броят на заявките е надвишен</translation>
     </message>
     <message>
+        <source>Use your own &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI keys&lt;/a&gt; for extend limits.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Daily request limit reached</source>
         <translation>Достигнат е дневният лимит на заявките</translation>
     </message>
