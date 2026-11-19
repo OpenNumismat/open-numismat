@@ -7,9 +7,10 @@ import re
 import time
 
 from PySide6.QtCore import Qt, QObject
-from PySide6.QtGui import QImage, QPixmap, QIcon
+from PySide6.QtGui import QCursor, QImage, QPixmap, QIcon
 from PySide6.QtWidgets import (
     QAbstractItemView,
+    QApplication,
     QComboBox,
     QDialog,
     QDialogButtonBox,
@@ -295,25 +296,37 @@ class ColnectConnector(QObject):
 
         raw_data = response_data.decode()
 
+        def showLimitError(message):
+            QApplication.setOverrideCursor(QCursor(Qt.ArrowCursor))
+            msg = QMessageBox(self.parent())
+            msg.setIcon(QMessageBox.Icon.Warning)
+            msg.setWindowTitle("Colnect")
+            msg.setTextFormat(Qt.TextFormat.RichText)
+            msg.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
+            msg.setText(
+                message + "<br>" +
+                self.tr("Use your own "
+                        "<a href='https://opennumismat.github.io/open-numismat/manual.html#sec8_4'>CAPI keys</a>"
+                        " for extend limits.")
+            )
+            msg.exec()
+            QApplication.restoreOverrideCursor()
+
         if raw_data.startswith('Invalid key'):
             QMessageBox.warning(self.parent(), "Colnect",
                                 self.tr("Colnect service not available"))
             return []
         elif raw_data.startswith('Limits exceeded daily'):
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Daily request limit reached"))
+            showLimitError(self.tr("Daily request limit reached"))
             return []
         elif raw_data.startswith('Limits exceeded weekly'):
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Weekly request limit reached"))
+            showLimitError(self.tr("Weekly request limit reached"))
             return []
         elif raw_data.startswith('Limits exceeded monthly'):
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Monthly request limit reached"))
+            showLimitError(self.tr("Monthly request limit reached"))
             return []
         elif raw_data.startswith('Limits exceeded'):
-            QMessageBox.warning(self.parent(), "Colnect",
-                                self.tr("Number of requests exceeded"))
+            showLimitError(self.tr("Number of requests exceeded"))
             return []
         elif raw_data.startswith('Visit colnect.com'):
             QMessageBox.warning(self.parent(), "Colnect",
