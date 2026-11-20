@@ -1167,6 +1167,10 @@ The application will need to restart now.</source>
         <translation>Броят на заявките е надвишен</translation>
     </message>
     <message>
+        <source>Use your own &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI keys&lt;/a&gt; for extend limits.</source>
+        <translation>Използване на собствени &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI ключове&lt;/a&gt; за увеличаване на лимитите.</translation>
+    </message>
+    <message>
         <source>Daily request limit reached</source>
         <translation>Достигнат е дневният лимит на заявките</translation>
     </message>
@@ -2301,6 +2305,10 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>ImportSettingsPage</name>
+    <message>
+        <source>Use Colnect proxy for get images</source>
+        <translation>Използване на Colnect прокси за изображения</translation>
+    </message>
     <message>
         <source>Secret</source>
         <translation>Secret</translation>

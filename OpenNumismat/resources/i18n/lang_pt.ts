@@ -1167,6 +1167,10 @@ A aplicação tem de reiniciar agora.</translation>
         <translation>Excedeu o número de pedidos</translation>
     </message>
     <message>
+        <source>Use your own &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI keys&lt;/a&gt; for extend limits.</source>
+        <translation>Use as suas próprias &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI keys&lt;/a&gt; para estender os limites.</translation>
+    </message>
+    <message>
         <source>Daily request limit reached</source>
         <translation>Atingiu o máximo de pedidos diários</translation>
     </message>
@@ -2301,6 +2305,10 @@ arraste e largue para adicionar)</translation>
 </context>
 <context>
     <name>ImportSettingsPage</name>
+    <message>
+        <source>Use Colnect proxy for get images</source>
+        <translation>Use o proxy da Colnect para obter imagens</translation>
+    </message>
     <message>
         <source>Secret</source>
         <translation>Secreto</translation>

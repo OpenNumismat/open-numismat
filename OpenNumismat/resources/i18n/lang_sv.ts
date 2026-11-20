@@ -1162,6 +1162,10 @@ Applikationen måste starta om nu.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
+        <source>Use your own &lt;a href=&apos;https://opennumismat.github.io/open-numismat/manual.html#sec8_4&apos;&gt;CAPI keys&lt;/a&gt; for extend limits.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <source>Daily request limit reached</source>
         <translation type="unfinished"/>
     </message>
@@ -2292,6 +2296,10 @@ drag-n-drop to add an image)</source>
 </context>
 <context>
     <name>ImportSettingsPage</name>
+    <message>
+        <source>Use Colnect proxy for get images</source>
+        <translation type="unfinished"/>
+    </message>
     <message>
         <source>Secret</source>
         <translation type="unfinished"/>
