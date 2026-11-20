@@ -2307,7 +2307,7 @@ arraste e largue para adicionar)</translation>
     <name>ImportSettingsPage</name>
     <message>
         <source>Use Colnect proxy for get images</source>
-        <translation type="unfinished"/>
+        <translation>Use o proxy da Colnect para obter imagens</translation>
     </message>
     <message>
         <source>Secret</source>
